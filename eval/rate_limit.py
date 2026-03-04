@@ -45,6 +45,12 @@ def throttled_reset(repo: str, script_dir: str) -> None:
     wait_if_needed(min_remaining=500)
 
     logger.info("Resetting repo state via setup_github.sh for %s...", repo)
+    # Ensure we're on main before running setup — a previous failed run
+    # may have left the repo on a feature branch.
+    subprocess.run(
+        ["git", "checkout", "main"],
+        capture_output=True, text=True, timeout=10, cwd=script_dir,
+    )
     result = subprocess.run(
         ["bash", f"{script_dir}/setup_github.sh", repo],
         capture_output=True, text=True, timeout=600,

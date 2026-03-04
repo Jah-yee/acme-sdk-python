@@ -388,6 +388,8 @@ echo "  Issue refs: batch=#${BATCH_ISSUE:-?}, ci=#${CI_ISSUE:-?}, grpc=#${GRPC_I
 
 # PR #1: Fix batch exporter shutdown (Alice)
 echo "  Creating fix/batch-shutdown branch..."
+git checkout main 2>/dev/null || true
+git branch -D fix/batch-shutdown 2>/dev/null || true
 git checkout -b fix/batch-shutdown main
 # Make a small change to batching.py to simulate the fix
 cat >> src/acme_sdk/utils/batching.py << 'PYEOF'
@@ -451,7 +453,8 @@ fi
 
 # PR #2: Add Python 3.12 to CI (Charlie)
 echo "  Creating ci/add-python-3.12 branch..."
-git checkout main
+git checkout main 2>/dev/null || true
+git branch -D ci/add-python-3.12 2>/dev/null || true
 git checkout -b ci/add-python-3.12
 
 # Update CI to add Python 3.12
@@ -543,7 +546,8 @@ echo "  Created PR #${PR2_NUM:-?}: $PR2_URL"
 
 # PR #3: Draft gRPC transport (Dana)
 echo "  Creating feat/grpc-transport branch..."
-git checkout main
+git checkout main 2>/dev/null || true
+git branch -D feat/grpc-transport 2>/dev/null || true
 git checkout -b feat/grpc-transport
 
 # Create a skeleton gRPC exporter
