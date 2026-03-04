@@ -35,6 +35,7 @@ from claude_agent_sdk import ClaudeAgentOptions, query, AssistantMessage, TextBl
 from arms import get_arm_options, ARM_NAMES
 from evaluators import evaluate_task
 from rate_limit import throttled_reset, wait_if_needed
+from resolve_numbers import resolve_numbers, apply_placeholders
 
 SCRIPT_DIR = Path(__file__).parent
 REPO_ROOT = SCRIPT_DIR.parent
@@ -49,12 +50,16 @@ logging.getLogger().addHandler(_file_handler)
 logger = logging.getLogger("eval")
 
 
-def load_tasks(task_filter: str | None = None, tier_filter: int | None = None) -> list[dict]:
-    """Load tasks from tasks.json, optionally filtering by ID or tier."""
+def load_tasks(repo: str, task_filter: str | None = None, tier_filter: int | None = None) -> list[dict]:
+    """Load tasks from tasks.json, resolve placeholders, optionally filter."""
     tasks_file = SCRIPT_DIR / "tasks.json"
-    with open(tasks_file) as f:
-        data = json.load(f)
+    raw_json = tasks_file.read_text()
 
+    # Resolve {{ISSUE_*}} and {{PR_*}} placeholders to current numbers
+    mapping = resolve_numbers(repo)
+    resolved_json = apply_placeholders(raw_json, mapping)
+
+    data = json.loads(resolved_json)
     tasks = data["tasks"]
 
     if task_filter:
@@ -183,7 +188,7 @@ def run_experiment_for_arm(
         concurrency=1,  # Sequential to avoid rate limits
         exit_on_error=False,
         dry_run=dry_run,
-        timeout=600,  # 10 min — tier 4 analysis tasks can exceed 5 min
+        timeout=300,  # 5 mins should be enough
     )
 
     logger.info("Experiment %s complete. Results:\n%s", experiment_name, experiment_df.to_string())
@@ -256,7 +261,7 @@ def main():
         parser.error("--repo is required (or set EVAL_REPO in eval/.env)")
 
     arms = ARM_NAMES if args.arm == "all" else [args.arm]
-    tasks = load_tasks(task_filter=args.task, tier_filter=args.tier)
+    tasks = load_tasks(args.repo, task_filter=args.task, tier_filter=args.tier)
 
     if not tasks:
         logger.error("No tasks matched the filter criteria.")
