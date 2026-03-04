@@ -15,18 +15,18 @@
       "expected_output": {
         "type": "exact",
         "value": 5,
-        "explanation": "Open bugs: OTLP timeout (#49), Batch shutdown (#52), Config crash (#57), CI Python 3.12 (#58), JSON unicode (#60)."
+        "explanation": "Open bugs: OTLP timeout (#74), Batch shutdown (#77), Config crash (#82), CI Python 3.12 (#83), JSON unicode (#85)."
       }
     },
     {
       "id": "T02",
       "tier": 1,
       "category": "read",
-      "description": "Who is assigned to issue #52 (Batch exporter drops last batch on shutdown)?",
+      "description": "Who is assigned to issue #77 (Batch exporter drops last batch on shutdown)?",
       "expected_output": {
         "type": "exact",
         "value": "no",
-        "explanation": "No one is assigned — the setup script's assignee calls silently fail because the users don't exist on GitHub."
+        "explanation": "Alice Chen is assigned to the batch exporter shutdown bug (#77)."
       }
     },
     {
@@ -37,14 +37,14 @@
       "expected_output": {
         "type": "exact",
         "value": "Draft: gRPC transport for OTLP",
-        "explanation": "PR #63 is the most recently created PR."
+        "explanation": "PR #88 is the most recently created PR."
       }
     },
     {
       "id": "T04",
       "tier": 1,
       "category": "read",
-      "description": "Is issue #55 (Typo in README.md) assigned to anyone?",
+      "description": "Is issue #80 (Typo in README.md) assigned to anyone?",
       "expected_output": {
         "type": "exact",
         "value": "no",
@@ -83,7 +83,7 @@
             "JSON file exporter doesn't handle unicode properly"
           ]
         },
-        "explanation": "The batch shutdown bug has PR #61, the CI bug has PR #62. The OTLP timeout and config crash bugs have no PRs."
+        "explanation": "The batch shutdown bug has PR #86, the CI bug has PR #87. The OTLP timeout and config crash bugs have no PRs."
       }
     },
     {
@@ -162,7 +162,7 @@
           "Add Python 3.12 to CI matrix",
           "Draft: gRPC transport for OTLP"
         ],
-        "explanation": "PR #61 has an approval from Bob. PRs #62 and #63 have no reviews."
+        "explanation": "PR #86 has an approval from Bob. PRs #87 and #88 have no reviews."
       }
     },
     {
@@ -204,44 +204,44 @@
       "id": "T13",
       "tier": 3,
       "category": "write",
-      "description": "The word 'recieve' appears in README.md. Create a branch called `fix/readme-typo`, fix the typo, commit with an appropriate message, push, and open a PR that references issue #55.",
+      "description": "The word 'recieve' appears in README.md. Create a branch called `fix/readme-typo`, fix the typo, commit with an appropriate message, push, and open a PR that references issue #80.",
       "expected_output": {
         "type": "state_check",
         "checks": [
           "Branch fix/readme-typo exists on remote",
           "README.md on that branch has 'receive' (not 'recieve')",
           "A PR exists from fix/readme-typo to main",
-          "PR body or title references issue #55",
+          "PR body or title references issue #80",
           "Commit message is descriptive (e.g., 'fix: correct typo in README.md')"
         ],
-        "note": "Issue #55 is the typo issue. Agent should reference it."
+        "note": "Issue #80 is the typo issue. Agent should reference it."
       }
     },
     {
       "id": "T14",
       "tier": 3,
       "category": "write",
-      "description": "Add the label `needs-triage` to issues #57 and #60.",
+      "description": "Add the label `needs-triage` to issues #82 and #85.",
       "expected_output": {
         "type": "state_check",
         "checks": [
           "Label 'needs-triage' exists (created if necessary)",
-          "Issue #57 has the 'needs-triage' label",
-          "Issue #60 has the 'needs-triage' label"
+          "Issue #82 has the 'needs-triage' label",
+          "Issue #85 has the 'needs-triage' label"
         ],
-        "note": "Issue #57 is the config crash bug, #60 is the unicode bug."
+        "note": "Issue #82 is the config crash bug, #85 is the unicode bug."
       }
     },
     {
       "id": "T15",
       "tier": 3,
       "category": "write",
-      "description": "Close issue #55 (the README typo) with a comment saying 'Fixed in PR #X' (use the actual PR number if one exists, otherwise note that no PR was found).",
+      "description": "Close issue #80 (the README typo) with a comment saying 'Fixed in PR #X' (use the actual PR number if one exists, otherwise note that no PR was found).",
       "expected_output": {
         "type": "state_check",
         "checks": [
-          "Issue #55 is closed",
-          "Issue #55 has a comment referencing a PR number or stating no PR exists"
+          "Issue #80 is closed",
+          "Issue #80 has a comment referencing a PR number or stating no PR exists"
         ],
         "note": "If T13 was run first, a PR exists. Otherwise, the agent should note no PR was found."
       }
@@ -250,11 +250,11 @@
       "id": "T16",
       "tier": 3,
       "category": "write",
-      "description": "Add a review comment to PR #62 saying 'LGTM — just verify the 3.12 tests pass on the ARM runner too.'",
+      "description": "Add a review comment to PR #87 saying 'LGTM — just verify the 3.12 tests pass on the ARM runner too.'",
       "expected_output": {
         "type": "state_check",
         "checks": [
-          "PR #62 has a review or comment containing the specified text"
+          "PR #87 has a review or comment containing the specified text"
         ]
       }
     },
@@ -262,15 +262,15 @@
       "id": "T17",
       "tier": 3,
       "category": "write",
-      "description": "Create a new label called `performance` with color `#ff9900` and description 'Performance-related issues', then apply it to issue #53.",
+      "description": "Create a new label called `performance` with color `#ff9900` and description 'Performance-related issues', then apply it to issue #78.",
       "expected_output": {
         "type": "state_check",
         "checks": [
           "Label 'performance' exists with color ff9900",
           "Label has description 'Performance-related issues'",
-          "Issue #53 has the 'performance' label"
+          "Issue #78 has the 'performance' label"
         ],
-        "note": "Issue #53 is the retry config enhancement."
+        "note": "Issue #78 is the retry config enhancement."
       }
     },
     {
@@ -297,10 +297,10 @@
       "expected_output": {
         "type": "llm_judge",
         "criteria": [
-          "Identifies multi-label issues including: #49 (bug,exporter), #52 (bug,critical), #54 (enhancement,exporter), #55 (docs,good-first-issue), #56 (enhancement,exporter), #58 (bug,ci), #59 (enhancement,v2.0), #60 (bug,exporter)",
+          "Identifies multi-label issues including: #74 (bug,exporter), #77 (bug,critical), #79 (enhancement,exporter), #76 (docs,good-first-issue), #81 (enhancement,exporter), #83 (bug,ci), #84 (enhancement,v2.0), #85 (bug,exporter)",
           "Lists the correct labels for each issue",
-          "Identifies that bug+exporter is the most common pair (appears on #49, #60, and closed issues #44)",
-          "Also notes enhancement+exporter as a common pair (#54, #56)",
+          "Identifies that bug+exporter is the most common pair (appears on #74, #85, and closed issues #69)",
+          "Also notes enhancement+exporter as a common pair (#79, #81)",
           "Includes both open and/or closed issues in the analysis"
         ]
       }
@@ -313,9 +313,9 @@
       "expected_output": {
         "type": "llm_judge",
         "criteria": [
-          "Identifies 8 open issues without a milestone: #49, #51, #52, #54, #55, #57, #58, #60",
-          "Groups by label: bugs (#49, #52, #57, #58, #60), enhancements (#54), docs (#51, #55)",
-          "Flags #52 as a critical bug without a milestone",
+          "Identifies 8 open issues without a milestone: #74, #76, #77, #79, #80, #82, #83, #85",
+          "Groups by label: bugs (#74, #77, #82, #83, #85), enhancements (#79), docs (#76, #80)",
+          "Flags #77 as a critical bug without a milestone",
           "Notes that all v2.0 milestone issues are enhancements, while most bugs have no milestone",
           "Provides reasonable recommendations or observations about the gap"
         ]
@@ -330,7 +330,7 @@
         "type": "llm_judge",
         "criteria": [
           "Lists all 3 open PRs",
-          "Reports review status: PR #61 approved, PR #62 no reviews, PR #63 no reviews (draft)",
+          "Reports review status: PR #86 approved, PR #87 no reviews, PR #88 no reviews (draft)",
           "Reports CI status for each PR",
           "Reports merge conflict status",
           "Reports age or creation date for each PR"
@@ -363,7 +363,7 @@
           "Searches for issues with 'exporter' in the title",
           "Lists issues with the exporter label",
           "Identifies that most exporter-titled issues do have the label",
-          "Notes any mismatches (e.g., 'Batch exporter drops last batch on shutdown' #52 mentions exporter in title but does not have the exporter label)",
+          "Notes any mismatches (e.g., 'Batch exporter drops last batch on shutdown' #77 mentions exporter in title but does not have the exporter label)",
           "Provides a clear comparison between the two sets"
         ]
       }
@@ -377,9 +377,9 @@
         "type": "llm_judge",
         "criteria": [
           "Identifies that almost all open issues have zero comments (11 of 12)",
-          "Notes that issue #49 is the only one with comments (2 comments)",
-          "Lists the bugs with zero comments: #52, #57, #58, #60",
-          "Flags #52 as critical priority with no comments/discussion",
+          "Notes that issue #74 is the only one with comments (2 comments)",
+          "Lists the bugs with zero comments: #77, #82, #83, #85",
+          "Flags #77 as critical priority with no comments/discussion",
           "Provides reasonable observations about the lack of triage activity"
         ]
       }
