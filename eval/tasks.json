@@ -1,0 +1,406 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Evaluation tasks for MCP vs. Skill agent tool integration comparison",
+    "repo": "acme-sdk-python",
+    "total_tasks": 25,
+    "note": "Issue and PR numbers are based on the setup_github.sh output. Adjust expected_output values if your actual numbers differ."
+  },
+  "tasks": [
+    {
+      "id": "T01",
+      "tier": 1,
+      "category": "read",
+      "description": "How many open issues in this repo are labeled `bug`?",
+      "expected_output": {
+        "type": "exact",
+        "value": 5,
+        "explanation": "Open bugs: OTLP timeout (#49), Batch shutdown (#52), Config crash (#57), CI Python 3.12 (#58), JSON unicode (#60)."
+      }
+    },
+    {
+      "id": "T02",
+      "tier": 1,
+      "category": "read",
+      "description": "Who is assigned to issue #52 (Batch exporter drops last batch on shutdown)?",
+      "expected_output": {
+        "type": "exact",
+        "value": "no",
+        "explanation": "No one is assigned — the setup script's assignee calls silently fail because the users don't exist on GitHub."
+      }
+    },
+    {
+      "id": "T03",
+      "tier": 1,
+      "category": "read",
+      "description": "What is the title of the most recently opened pull request?",
+      "expected_output": {
+        "type": "exact",
+        "value": "Draft: gRPC transport for OTLP",
+        "explanation": "PR #63 is the most recently created PR."
+      }
+    },
+    {
+      "id": "T04",
+      "tier": 1,
+      "category": "read",
+      "description": "Is issue #55 (Typo in README.md) assigned to anyone?",
+      "expected_output": {
+        "type": "exact",
+        "value": "no",
+        "explanation": "The README typo issue has no assignee."
+      }
+    },
+    {
+      "id": "T05",
+      "tier": 1,
+      "category": "read",
+      "description": "What labels are on the issue titled 'OTLP exporter fails silently on connection timeout'?",
+      "expected_output": {
+        "type": "exact",
+        "value": [
+          "bug",
+          "exporter"
+        ],
+        "explanation": "The OTLP timeout issue has bug and exporter labels."
+      }
+    },
+    {
+      "id": "T06",
+      "tier": 2,
+      "category": "read",
+      "description": "List all open issues labeled `bug` and check if any of them have a linked pull request. Which bugs have fixes in progress?",
+      "expected_output": {
+        "type": "structured",
+        "value": {
+          "bugs_with_prs": [
+            "Batch exporter drops last batch on shutdown",
+            "CI workflow doesn't run on Python 3.12"
+          ],
+          "bugs_without_prs": [
+            "OTLP exporter fails silently on connection timeout",
+            "Config file parser crashes on empty values",
+            "JSON file exporter doesn't handle unicode properly"
+          ]
+        },
+        "explanation": "The batch shutdown bug has PR #61, the CI bug has PR #62. The OTLP timeout and config crash bugs have no PRs."
+      }
+    },
+    {
+      "id": "T07",
+      "tier": 2,
+      "category": "read",
+      "description": "Look at the last 10 merged PRs. What percentage of them modified files in the `tests/` directory?",
+      "expected_output": {
+        "type": "exact",
+        "value": 0,
+        "explanation": "setup_github.sh creates 3 open PRs but no merged PRs. The agent should report 0 merged PRs."
+      }
+    },
+    {
+      "id": "T08",
+      "tier": 2,
+      "category": "read",
+      "description": "Find all open issues assigned to Alice. How many are bugs vs. enhancements?",
+      "expected_output": {
+        "type": "structured",
+        "value": {
+          "total": 0,
+          "bugs": 0,
+          "enhancements": 0,
+          "issues": []
+        },
+        "explanation": "No issues are assigned to Alice — the setup script's assignee calls silently fail because the users don't exist on GitHub."
+      }
+    },
+    {
+      "id": "T09",
+      "tier": 2,
+      "category": "read",
+      "description": "Which open issues are part of the v2.0 milestone? List them with their titles and labels.",
+      "expected_output": {
+        "type": "structured",
+        "value": [
+          {
+            "title": "Add support for custom span attributes",
+            "labels": [
+              "enhancement"
+            ]
+          },
+          {
+            "title": "Add retry configuration to client constructor",
+            "labels": [
+              "enhancement"
+            ]
+          },
+          {
+            "title": "Add gRPC transport option for OTLP exporter",
+            "labels": [
+              "enhancement",
+              "exporter"
+            ]
+          },
+          {
+            "title": "Add metrics collection support",
+            "labels": [
+              "enhancement",
+              "v2.0"
+            ]
+          }
+        ],
+        "explanation": "Four open issues are in the v2.0 milestone."
+      }
+    },
+    {
+      "id": "T10",
+      "tier": 2,
+      "category": "read",
+      "description": "Are there any open PRs that don't have at least one review? List them.",
+      "expected_output": {
+        "type": "structured",
+        "value": [
+          "Add Python 3.12 to CI matrix",
+          "Draft: gRPC transport for OTLP"
+        ],
+        "explanation": "PR #61 has an approval from Bob. PRs #62 and #63 have no reviews."
+      }
+    },
+    {
+      "id": "T11",
+      "tier": 2,
+      "category": "read",
+      "description": "Find all issues labeled `exporter`. How many are open vs. closed?",
+      "expected_output": {
+        "type": "structured",
+        "value": {
+          "open": 4,
+          "closed": 3,
+          "open_titles": [
+            "OTLP exporter fails silently on connection timeout",
+            "Console exporter output is not configurable",
+            "Add gRPC transport option for OTLP exporter",
+            "JSON file exporter doesn't handle unicode properly"
+          ]
+        },
+        "explanation": "4 open exporter issues, 3 closed (OTLP batch drop, JSON file exporter added, console exporter added)."
+      }
+    },
+    {
+      "id": "T12",
+      "tier": 3,
+      "category": "write",
+      "description": "Create a new issue titled 'Add request timeout configuration' with the label `enhancement`, and add it to the v2.0 milestone.",
+      "expected_output": {
+        "type": "state_check",
+        "checks": [
+          "Issue exists with exact title 'Add request timeout configuration'",
+          "Issue has the 'enhancement' label",
+          "Issue is in the v2.0 milestone",
+          "Issue is open"
+        ]
+      }
+    },
+    {
+      "id": "T13",
+      "tier": 3,
+      "category": "write",
+      "description": "The word 'recieve' appears in README.md. Create a branch called `fix/readme-typo`, fix the typo, commit with an appropriate message, push, and open a PR that references issue #55.",
+      "expected_output": {
+        "type": "state_check",
+        "checks": [
+          "Branch fix/readme-typo exists on remote",
+          "README.md on that branch has 'receive' (not 'recieve')",
+          "A PR exists from fix/readme-typo to main",
+          "PR body or title references issue #55",
+          "Commit message is descriptive (e.g., 'fix: correct typo in README.md')"
+        ],
+        "note": "Issue #55 is the typo issue. Agent should reference it."
+      }
+    },
+    {
+      "id": "T14",
+      "tier": 3,
+      "category": "write",
+      "description": "Add the label `needs-triage` to issues #57 and #60.",
+      "expected_output": {
+        "type": "state_check",
+        "checks": [
+          "Label 'needs-triage' exists (created if necessary)",
+          "Issue #57 has the 'needs-triage' label",
+          "Issue #60 has the 'needs-triage' label"
+        ],
+        "note": "Issue #57 is the config crash bug, #60 is the unicode bug."
+      }
+    },
+    {
+      "id": "T15",
+      "tier": 3,
+      "category": "write",
+      "description": "Close issue #55 (the README typo) with a comment saying 'Fixed in PR #X' (use the actual PR number if one exists, otherwise note that no PR was found).",
+      "expected_output": {
+        "type": "state_check",
+        "checks": [
+          "Issue #55 is closed",
+          "Issue #55 has a comment referencing a PR number or stating no PR exists"
+        ],
+        "note": "If T13 was run first, a PR exists. Otherwise, the agent should note no PR was found."
+      }
+    },
+    {
+      "id": "T16",
+      "tier": 3,
+      "category": "write",
+      "description": "Add a review comment to PR #62 saying 'LGTM — just verify the 3.12 tests pass on the ARM runner too.'",
+      "expected_output": {
+        "type": "state_check",
+        "checks": [
+          "PR #62 has a review or comment containing the specified text"
+        ]
+      }
+    },
+    {
+      "id": "T17",
+      "tier": 3,
+      "category": "write",
+      "description": "Create a new label called `performance` with color `#ff9900` and description 'Performance-related issues', then apply it to issue #53.",
+      "expected_output": {
+        "type": "state_check",
+        "checks": [
+          "Label 'performance' exists with color ff9900",
+          "Label has description 'Performance-related issues'",
+          "Issue #53 has the 'performance' label"
+        ],
+        "note": "Issue #53 is the retry config enhancement."
+      }
+    },
+    {
+      "id": "T18",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Generate a changelog for everything merged between tag v1.0.0 and v1.1.0, grouped by category (features, bug fixes, docs). Format as Markdown.",
+      "expected_output": {
+        "type": "llm_judge",
+        "criteria": [
+          "Contains a Features section listing: JSON file exporter, console exporter, batch processing, gzip compression",
+          "Contains a Bug Fixes section listing: OTLP batch size fix, batch shutdown race condition, nested attribute serialization",
+          "Contains a Docs section listing: exporters guide, API reference, examples",
+          "Formatted as valid Markdown with headers and lists",
+          "Derived from actual git log between v1.0.0 and v1.1.0 tags"
+        ]
+      }
+    },
+    {
+      "id": "T19",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Which contributor has the most commits to files in the `src/acme_sdk/exporters/` directory? What percentage of total commits to that directory are theirs?",
+      "expected_output": {
+        "type": "approximate",
+        "value": {
+          "contributor": "Alice Chen",
+          "percentage": "~60-70%"
+        },
+        "explanation": "Alice has the most commits to the exporters directory (OTLP, JSON, console exporters). Dana contributed the OTLP batch fix and unicode fix."
+      }
+    },
+    {
+      "id": "T20",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Identify the 3 files with the most commits in the entire repo history. For each, summarize the types of changes (new features, bug fixes, refactors).",
+      "expected_output": {
+        "type": "llm_judge",
+        "criteria": [
+          "Identifies 3 files with the most commits (likely: __init__.py, CHANGELOG.md, client.py or otlp.py, batching.py, auth.py)",
+          "For each file, provides a reasonable summary of change types",
+          "Change type classifications are accurate (features vs fixes vs refactors)",
+          "Uses git log to determine commit counts"
+        ]
+      }
+    },
+    {
+      "id": "T21",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Audit the open PRs: for each one, report whether it has reviews, whether CI passed, whether there are merge conflicts, and how old it is.",
+      "expected_output": {
+        "type": "llm_judge",
+        "criteria": [
+          "Lists all 3 open PRs",
+          "Reports review status: PR #61 approved, PR #62 no reviews, PR #63 no reviews (draft)",
+          "Reports CI status for each PR",
+          "Reports merge conflict status",
+          "Reports age or creation date for each PR"
+        ]
+      }
+    },
+    {
+      "id": "T22",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Find all issues that were opened and closed within the same milestone. What was the average time from open to close?",
+      "expected_output": {
+        "type": "llm_judge",
+        "criteria": [
+          "Identifies closed issues in v1.0.0 and v1.1.0 milestones",
+          "Computes time from open to close for each",
+          "Reports average time (likely very short since issues were created and closed in the same script run)",
+          "Notes that the timestamps may be artificial"
+        ]
+      }
+    },
+    {
+      "id": "T23",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Which directories in `src/` have zero test coverage? (i.e., no corresponding test file exists in `tests/`)",
+      "expected_output": {
+        "type": "structured",
+        "value": {
+          "uncovered": [
+            "src/acme_sdk/exporters/console.py",
+            "src/acme_sdk/utils/serialization.py",
+            "src/acme_sdk/config.py"
+          ],
+          "explanation": "No test_console.py, no test_serialization.py, no test_config.py exist in the tests directory."
+        },
+        "criteria": [
+          "Correctly identifies source files without corresponding test files",
+          "Does not falsely report covered files as uncovered",
+          "Examines the actual test directory structure"
+        ]
+      }
+    },
+    {
+      "id": "T24",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Generate a contributor activity summary: for each contributor, show total commits, most recent commit date, and which areas of the codebase they primarily work in.",
+      "expected_output": {
+        "type": "llm_judge",
+        "criteria": [
+          "Lists all 4 contributors: Alice Chen, Bob Martinez, Charlie Kim, Dana Okafor",
+          "Shows commit counts (Alice ~20+, Bob ~10+, Charlie ~5+, Dana ~5+)",
+          "Shows most recent commit date for each",
+          "Describes primary work areas: Alice=src/, Bob=docs/examples, Charlie=CI/config, Dana=bug fixes"
+        ]
+      }
+    },
+    {
+      "id": "T25",
+      "tier": 4,
+      "category": "analysis",
+      "description": "Compare the v1.0.0 and v1.1.0 releases: how many issues were resolved in each, how many PRs merged, and what areas of the codebase were most changed?",
+      "expected_output": {
+        "type": "llm_judge",
+        "criteria": [
+          "Reports issues in v1.0.0 milestone (3 bugs resolved) or similar",
+          "Reports issues in v1.1.0 milestone (2 bugs, 4 enhancements resolved) or similar",
+          "Analyzes git diff between tags to identify most-changed areas",
+          "Notes that v1.1.0 was larger in scope (more files, more features)",
+          "Key areas changed: exporters/ (new in v1.1.0), utils/batching.py, auth.py"
+        ]
+      }
+    }
+  ]
+}

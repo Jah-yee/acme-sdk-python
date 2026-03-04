@@ -16,3 +16,5 @@ htmlcov/
 venv/
 *.db
 acme_traces/
+.env
+*.log
