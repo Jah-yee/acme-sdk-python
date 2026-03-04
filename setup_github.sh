@@ -458,6 +458,7 @@ git branch -D ci/add-python-3.12 2>/dev/null || true
 git checkout -b ci/add-python-3.12
 
 # Update CI to add Python 3.12
+mkdir -p .github/workflows
 cat > .github/workflows/ci.yml << 'YAMLEOF'
 name: CI
 
