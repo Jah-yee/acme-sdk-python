@@ -183,7 +183,7 @@ def run_experiment_for_arm(
         concurrency=1,  # Sequential to avoid rate limits
         exit_on_error=False,
         dry_run=dry_run,
-        timeout=600,  # 10 minutes per task to avoid worker requeue
+        timeout=600,  # 10 min — tier 4 analysis tasks can exceed 5 min
     )
 
     logger.info("Experiment %s complete. Results:\n%s", experiment_name, experiment_df.to_string())

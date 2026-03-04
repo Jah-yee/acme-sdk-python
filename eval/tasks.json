@@ -277,15 +277,15 @@
       "id": "T18",
       "tier": 4,
       "category": "analysis",
-      "description": "Generate a changelog for everything merged between tag v1.0.0 and v1.1.0, grouped by category (features, bug fixes, docs). Format as Markdown.",
+      "description": "For each milestone in the repo (including closed ones), report the total number of issues, how many are open vs closed, and the completion percentage. Which milestone is fully complete?",
       "expected_output": {
         "type": "llm_judge",
         "criteria": [
-          "Contains a Features section listing: JSON file exporter, console exporter, batch processing, gzip compression",
-          "Contains a Bug Fixes section listing: OTLP batch size fix, batch shutdown race condition, nested attribute serialization",
-          "Contains a Docs section listing: exporters guide, API reference, examples",
-          "Formatted as valid Markdown with headers and lists",
-          "Derived from actual git log between v1.0.0 and v1.1.0 tags"
+          "Reports on v1.0.0 milestone: 3 issues, all closed, 100% complete",
+          "Reports on v1.1.0 milestone: 6 issues, all closed, 100% complete",
+          "Reports on v2.0 milestone: 4 issues, all open, 0% complete",
+          "Correctly identifies v1.0.0 and v1.1.0 as fully complete",
+          "Identifies v2.0 as the only incomplete milestone"
         ]
       }
     },
@@ -293,28 +293,31 @@
       "id": "T19",
       "tier": 4,
       "category": "analysis",
-      "description": "Which contributor has the most commits to files in the `src/acme_sdk/exporters/` directory? What percentage of total commits to that directory are theirs?",
+      "description": "Find all issues that have more than one label. For each, list the issue title and all its labels. Which label pair appears together most frequently?",
       "expected_output": {
-        "type": "approximate",
-        "value": {
-          "contributor": "Alice Chen",
-          "percentage": "~60-70%"
-        },
-        "explanation": "Alice has the most commits to the exporters directory (OTLP, JSON, console exporters). Dana contributed the OTLP batch fix and unicode fix."
+        "type": "llm_judge",
+        "criteria": [
+          "Identifies multi-label issues including: #49 (bug,exporter), #52 (bug,critical), #54 (enhancement,exporter), #55 (docs,good-first-issue), #56 (enhancement,exporter), #58 (bug,ci), #59 (enhancement,v2.0), #60 (bug,exporter)",
+          "Lists the correct labels for each issue",
+          "Identifies that bug+exporter is the most common pair (appears on #49, #60, and closed issues #44)",
+          "Also notes enhancement+exporter as a common pair (#54, #56)",
+          "Includes both open and/or closed issues in the analysis"
+        ]
       }
     },
     {
       "id": "T20",
       "tier": 4,
       "category": "analysis",
-      "description": "Identify the 3 files with the most commits in the entire repo history. For each, summarize the types of changes (new features, bug fixes, refactors).",
+      "description": "Which open issues are not assigned to any milestone? Group them by their primary label (bug, enhancement, docs). Are there any critical bugs without a milestone?",
       "expected_output": {
         "type": "llm_judge",
         "criteria": [
-          "Identifies 3 files with the most commits (likely: __init__.py, CHANGELOG.md, client.py or otlp.py, batching.py, auth.py)",
-          "For each file, provides a reasonable summary of change types",
-          "Change type classifications are accurate (features vs fixes vs refactors)",
-          "Uses git log to determine commit counts"
+          "Identifies 8 open issues without a milestone: #49, #51, #52, #54, #55, #57, #58, #60",
+          "Groups by label: bugs (#49, #52, #57, #58, #60), enhancements (#54), docs (#51, #55)",
+          "Flags #52 as a critical bug without a milestone",
+          "Notes that all v2.0 milestone issues are enhancements, while most bugs have no milestone",
+          "Provides reasonable recommendations or observations about the gap"
         ]
       }
     },
@@ -353,21 +356,15 @@
       "id": "T23",
       "tier": 4,
       "category": "analysis",
-      "description": "Which directories in `src/` have zero test coverage? (i.e., no corresponding test file exists in `tests/`)",
+      "description": "Search for all issues that mention 'exporter' in their title. How do these compare to issues with the `exporter` label? Are there any mismatches — issues that mention 'exporter' but aren't labeled, or issues labeled `exporter` that don't mention it in the title?",
       "expected_output": {
-        "type": "structured",
-        "value": {
-          "uncovered": [
-            "src/acme_sdk/exporters/console.py",
-            "src/acme_sdk/utils/serialization.py",
-            "src/acme_sdk/config.py"
-          ],
-          "explanation": "No test_console.py, no test_serialization.py, no test_config.py exist in the tests directory."
-        },
+        "type": "llm_judge",
         "criteria": [
-          "Correctly identifies source files without corresponding test files",
-          "Does not falsely report covered files as uncovered",
-          "Examines the actual test directory structure"
+          "Searches for issues with 'exporter' in the title",
+          "Lists issues with the exporter label",
+          "Identifies that most exporter-titled issues do have the label",
+          "Notes any mismatches (e.g., 'Batch exporter drops last batch on shutdown' #52 mentions exporter in title but does not have the exporter label)",
+          "Provides a clear comparison between the two sets"
         ]
       }
     },
@@ -375,14 +372,15 @@
       "id": "T24",
       "tier": 4,
       "category": "analysis",
-      "description": "Generate a contributor activity summary: for each contributor, show total commits, most recent commit date, and which areas of the codebase they primarily work in.",
+      "description": "Which open issues have zero comments? Of those, which are bugs? Are there any bugs that seem urgent (labeled `critical`) but have no discussion at all?",
       "expected_output": {
         "type": "llm_judge",
         "criteria": [
-          "Lists all 4 contributors: Alice Chen, Bob Martinez, Charlie Kim, Dana Okafor",
-          "Shows commit counts (Alice ~20+, Bob ~10+, Charlie ~5+, Dana ~5+)",
-          "Shows most recent commit date for each",
-          "Describes primary work areas: Alice=src/, Bob=docs/examples, Charlie=CI/config, Dana=bug fixes"
+          "Identifies that almost all open issues have zero comments (11 of 12)",
+          "Notes that issue #49 is the only one with comments (2 comments)",
+          "Lists the bugs with zero comments: #52, #57, #58, #60",
+          "Flags #52 as critical priority with no comments/discussion",
+          "Provides reasonable observations about the lack of triage activity"
         ]
       }
     },
@@ -390,15 +388,15 @@
       "id": "T25",
       "tier": 4,
       "category": "analysis",
-      "description": "Compare the v1.0.0 and v1.1.0 releases: how many issues were resolved in each, how many PRs merged, and what areas of the codebase were most changed?",
+      "description": "Compare the v1.0.0 and v1.1.0 milestones: how many issues were in each, what was the ratio of bugs to enhancements in each, and which milestone had broader scope?",
       "expected_output": {
         "type": "llm_judge",
         "criteria": [
-          "Reports issues in v1.0.0 milestone (3 bugs resolved) or similar",
-          "Reports issues in v1.1.0 milestone (2 bugs, 4 enhancements resolved) or similar",
-          "Analyzes git diff between tags to identify most-changed areas",
-          "Notes that v1.1.0 was larger in scope (more files, more features)",
-          "Key areas changed: exporters/ (new in v1.1.0), utils/batching.py, auth.py"
+          "Reports v1.0.0 milestone: 3 issues, all bugs",
+          "Reports v1.1.0 milestone: 6 issues, 2 bugs and 4 enhancements",
+          "Notes that v1.1.0 had broader scope (twice as many issues, mix of bugs and features)",
+          "v1.0.0 was purely a bugfix release while v1.1.0 was a feature release",
+          "Both milestones are fully closed with all issues resolved"
         ]
       }
     }

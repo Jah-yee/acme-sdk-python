@@ -58,7 +58,7 @@ def _mcp_options(repo: str, repo_prompt: str) -> ClaudeAgentOptions:
 def _lobehub_options(repo_prompt: str) -> ClaudeAgentOptions:
     skill_content = _load_skill("gh-cli-lobehub.md")
     return ClaudeAgentOptions(
-        allowed_tools=["Bash(gh *)", "Bash(git *)"],
+        allowed_tools=["Bash(gh *)", "Bash(git *)", "Read", "Glob", "Grep"],
         system_prompt=skill_content + "\n\n" + BASE_PROMPT + repo_prompt,
         max_turns=25,
     )
@@ -67,7 +67,7 @@ def _lobehub_options(repo_prompt: str) -> ClaudeAgentOptions:
 def _vault_options(repo_prompt: str) -> ClaudeAgentOptions:
     skill_content = _load_skill("github-cli-vault.md")
     return ClaudeAgentOptions(
-        allowed_tools=["Bash(gh *)", "Bash(git *)"],
+        allowed_tools=["Bash(gh *)", "Bash(git *)", "Read", "Glob", "Grep"],
         system_prompt=skill_content + "\n\n" + BASE_PROMPT + repo_prompt,
         max_turns=25,
     )
