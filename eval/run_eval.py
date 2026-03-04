@@ -31,10 +31,13 @@ load_dotenv(dotenv_path=Path(__file__).parent / ".env")
 import pandas as pd
 from arize import ArizeClient
 from arize.experiments import EvaluationResult
-from claude_agent_sdk import ClaudeAgentOptions, query, AssistantMessage, TextBlock, ToolUseBlock
+from claude_agent_sdk import (
+    ClaudeAgentOptions, query, AssistantMessage, ResultMessage,
+    TextBlock, ToolUseBlock,
+)
 
 from arms import get_arm_options, ARM_NAMES
-from evaluators import evaluate_task
+from evaluators import evaluate_task, judge_output_quality
 from rate_limit import throttled_reset, wait_if_needed
 from resolve_numbers import resolve_numbers, apply_placeholders
 
@@ -84,6 +87,9 @@ async def run_single_task(description: str, options: ClaudeAgentOptions) -> dict
     """Execute a single task via claude-agent-sdk and collect results."""
     result_text = ""
     tool_calls = 0
+    tool_names: list[str] = []
+    usage = {}
+    total_cost_usd = 0.0
     start_time = time.time()
 
     try:
@@ -94,6 +100,10 @@ async def run_single_task(description: str, options: ClaudeAgentOptions) -> dict
                         result_text += block.text
                     elif isinstance(block, ToolUseBlock):
                         tool_calls += 1
+                        tool_names.append(block.name)
+            elif isinstance(message, ResultMessage):
+                usage = message.usage or {}
+                total_cost_usd = message.total_cost_usd or 0.0
     except Exception as e:
         result_text = f"ERROR: {e}"
         logger.error("Task failed: %s", e)
@@ -102,7 +112,11 @@ async def run_single_task(description: str, options: ClaudeAgentOptions) -> dict
     return {
         "output": result_text,
         "tool_calls": tool_calls,
+        "tool_names": tool_names,
         "latency_seconds": round(elapsed, 2),
+        "input_tokens": usage.get("input_tokens", 0),
+        "output_tokens": usage.get("output_tokens", 0),
+        "total_cost_usd": round(total_cost_usd, 6),
     }
 
 
@@ -158,25 +172,138 @@ def run_experiment_for_arm(
         result = await run_single_task(description, options)
         return json.dumps(result)
 
-    def evaluator_fn(output: str, dataset_row) -> EvaluationResult:
+    def _parse_output(output: str) -> tuple[str, dict]:
+        """Parse task output JSON, return (text, full_result)."""
+        try:
+            result = json.loads(output)
+            return result.get("output", output), result
+        except (json.JSONDecodeError, TypeError):
+            return output, {}
+
+    def _get_task(dataset_row) -> dict:
+        description = dataset_row.get("attributes.input.value", "")
+        return task_by_desc.get(description, {})
+
+    # --- Evaluator 1: Does it work? ---
+    def correctness(output: str, dataset_row) -> EvaluationResult:
         """Score the output against the task's expected output."""
         if output is None:
             return EvaluationResult(
                 score=0, label="error",
                 explanation="Task produced no output (likely errored).",
             )
-
-        description = dataset_row.get("attributes.input.value", "")
-        task = task_by_desc.get(description, {})
-
-        # Parse the output JSON to get the text
-        try:
-            result = json.loads(output)
-            output_text = result.get("output", output)
-        except (json.JSONDecodeError, TypeError):
-            output_text = output
-
+        task = _get_task(dataset_row)
+        output_text, _ = _parse_output(output)
         return evaluate_task(output_text or "", task)
+
+    # --- Evaluator 2: Does it work well? (Tier 4 only) ---
+    def output_quality(output: str, dataset_row) -> EvaluationResult:
+        """LLM-as-judge scoring completeness, accuracy, organization. Tier 4 only."""
+        task = _get_task(dataset_row)
+        if task.get("tier") != 4:
+            return EvaluationResult(score=1.0, label="n/a", explanation="Not a tier 4 analysis task.")
+        if output is None:
+            return EvaluationResult(score=0, label="error", explanation="No output.")
+        output_text, _ = _parse_output(output)
+        return judge_output_quality(output_text or "", task)
+
+    # --- Evaluator 3: Is it efficient? (tool calls vs baseline) ---
+    def efficiency(output: str, dataset_row) -> EvaluationResult:
+        """Score tool call count relative to expected_steps baseline."""
+        if output is None:
+            return EvaluationResult(score=0, label="error", explanation="No output.")
+
+        task = _get_task(dataset_row)
+        _, result = _parse_output(output)
+        calls = result.get("tool_calls", 0)
+        expected = task.get("expected_steps", 5)
+        tool_names = result.get("tool_names", [])
+
+        # Score: 1.0 if at or under expected, degrades as ratio increases
+        if calls == 0:
+            score, label = 0.0, "no_tools"
+        elif calls <= expected:
+            score, label = 1.0, "efficient"
+        elif calls <= expected * 2:
+            score = max(0.3, 1.0 - (calls - expected) / expected)
+            label = "moderate"
+        else:
+            score, label = 0.2, "excessive"
+
+        # Flag redundant tool calls (same tool called consecutively)
+        redundant = sum(1 for i in range(1, len(tool_names)) if tool_names[i] == tool_names[i - 1])
+        detail = f"{calls} tool calls (expected ~{expected})"
+        if redundant:
+            detail += f", {redundant} consecutive repeated calls"
+
+        return EvaluationResult(score=score, label=label, explanation=detail)
+
+    # --- Evaluator 4: How fast? ---
+    def latency(output: str, dataset_row) -> EvaluationResult:
+        """Wall-clock time score. <30s=1.0, 30-120s=0.7, 120-300s=0.4, >300s=0.1."""
+        if output is None:
+            return EvaluationResult(score=0, label="error", explanation="No output.")
+
+        _, result = _parse_output(output)
+        seconds = result.get("latency_seconds", 0)
+        tokens_in = result.get("input_tokens", 0)
+        tokens_out = result.get("output_tokens", 0)
+        cost = result.get("total_cost_usd", 0)
+
+        if seconds <= 30:
+            score, label = 1.0, "fast"
+        elif seconds <= 120:
+            score, label = 0.7, "moderate"
+        elif seconds <= 300:
+            score, label = 0.4, "slow"
+        else:
+            score, label = 0.1, "very_slow"
+
+        detail = f"{seconds}s"
+        if tokens_in or tokens_out:
+            detail += f" | {tokens_in} in + {tokens_out} out tokens"
+        if cost:
+            detail += f" | ${cost:.4f}"
+
+        return EvaluationResult(score=score, label=label, explanation=detail)
+
+    # --- Evaluator 5: Tool integration fidelity ---
+    def tool_fidelity(output: str, dataset_row) -> EvaluationResult:
+        """Did the agent use its designated tool integration pattern?
+
+        MCP arm: should use mcp__github__* tools, not Bash.
+        Skill arms: should use Bash(gh ...), not mcp tools.
+        Detects if the agent ignored the skill file and improvised.
+        """
+        if output is None:
+            return EvaluationResult(score=0, label="error", explanation="No output.")
+
+        _, result = _parse_output(output)
+        tool_names = result.get("tool_names", [])
+        if not tool_names:
+            return EvaluationResult(score=0, label="no_tools", explanation="No tool calls recorded.")
+
+        mcp_calls = [t for t in tool_names if t.startswith("mcp__")]
+        bash_calls = [t for t in tool_names if t == "Bash"]
+
+        if arm == "mcp":
+            # MCP arm should use MCP tools
+            if not mcp_calls:
+                return EvaluationResult(score=0.2, label="off_pattern",
+                    explanation=f"MCP arm used no MCP tools. Tools: {tool_names}")
+            fidelity = len(mcp_calls) / len(tool_names)
+            label = "on_pattern" if fidelity > 0.8 else "mixed"
+            return EvaluationResult(score=fidelity, label=label,
+                explanation=f"{len(mcp_calls)}/{len(tool_names)} calls were MCP tools")
+        else:
+            # Skill arms should use Bash (gh/git commands)
+            if not bash_calls:
+                return EvaluationResult(score=0.2, label="off_pattern",
+                    explanation=f"Skill arm used no Bash tools. Tools: {tool_names}")
+            fidelity = len(bash_calls) / len(tool_names)
+            label = "on_pattern" if fidelity > 0.5 else "mixed"
+            return EvaluationResult(score=fidelity, label=label,
+                explanation=f"{len(bash_calls)}/{len(tool_names)} calls were Bash (gh/git)")
 
     experiment_name = f"{arm}-run{run_index + 1}"
     logger.info("Running experiment: %s", experiment_name)
@@ -185,11 +312,11 @@ def run_experiment_for_arm(
         name=experiment_name,
         dataset_id=dataset_id,
         task=task_fn,
-        evaluators=[evaluator_fn],
+        evaluators=[correctness, output_quality, efficiency, latency, tool_fidelity],
         concurrency=1,  # Sequential to avoid rate limits
         exit_on_error=False,
         dry_run=dry_run,
-        timeout=300,  # 5 mins should be enough
+        timeout=600,  # 10 min — tier 4 analysis tasks can be slow
     )
 
     logger.info("Experiment %s complete. Results:\n%s", experiment_name, experiment_df.to_string())

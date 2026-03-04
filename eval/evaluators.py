@@ -261,6 +261,73 @@ def _extract_pr_number(text: str) -> int | None:
     return int(match.group(1)) if match else None
 
 
+def judge_output_quality(output: str, task: dict) -> EvaluationResult:
+    """LLM-as-judge scoring completeness, accuracy, and organization for tier 4 tasks.
+
+    Returns a normalized 0-1 score based on three dimensions:
+    - Completeness: Did it include all expected items?
+    - Accuracy: Are the facts correct, no hallucinations?
+    - Organization: Is the output well-structured and usable?
+    """
+    from anthropic import Anthropic
+
+    description = task.get("description", "")
+    criteria = task.get("expected_output", {}).get("criteria", [])
+    criteria_text = "\n".join(f"- {c}" for c in criteria)
+
+    client = Anthropic()
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{
+            "role": "user",
+            "content": f"""You are evaluating the quality of an AI agent's analysis output.
+
+## Task
+{description}
+
+## Agent Output
+{output}
+
+## Reference Criteria
+{criteria_text}
+
+## Instructions
+Score the output on three dimensions (each 1-5):
+
+1. **Completeness**: Does the output cover all the items and aspects mentioned in the criteria? Are there gaps?
+2. **Accuracy**: Are the stated facts correct? Is there any hallucinated or fabricated content?
+3. **Organization**: Is the output well-structured, clear, and directly usable? Or is it rambling/disorganized?
+
+Respond in JSON:
+{{"completeness": <1-5>, "accuracy": <1-5>, "organization": <1-5>, "explanation": "<brief summary>"}}"""
+        }],
+    )
+
+    try:
+        response_text = response.content[0].text
+        json_match = re.search(r'\{[^{}]*"completeness"[^{}]*\}', response_text, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+            comp = result.get("completeness", 0)
+            acc = result.get("accuracy", 0)
+            org = result.get("organization", 0)
+            avg = (comp + acc + org) / 3.0
+            normalized = avg / 5.0
+            label = "good" if avg >= 4 else "fair" if avg >= 2.5 else "poor"
+            return EvaluationResult(
+                score=normalized, label=label,
+                explanation=f"completeness={comp}/5, accuracy={acc}/5, organization={org}/5. {result.get('explanation', '')}",
+            )
+    except (json.JSONDecodeError, IndexError, KeyError):
+        pass
+
+    return EvaluationResult(
+        score=0, label="judge_error",
+        explanation=f"Failed to parse quality judge response: {response.content[0].text[:200]}",
+    )
+
+
 def llm_judge(output: str, expected: dict) -> EvaluationResult:
     """Use Claude Opus as LLM-as-judge to score output against criteria."""
     from anthropic import Anthropic
