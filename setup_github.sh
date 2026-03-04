@@ -457,65 +457,9 @@ git checkout main 2>/dev/null || true
 git branch -D ci/add-python-3.12 2>/dev/null || true
 git checkout -b ci/add-python-3.12
 
-# Update CI to add Python 3.12
-mkdir -p .github/workflows
-cat > .github/workflows/ci.yml << 'YAMLEOF'
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e ".[dev]"
-
-      - name: Run linter
-        run: ruff check src/ tests/
-
-      - name: Run type checker
-        run: mypy src/ --ignore-missing-imports
-
-      - name: Run tests
-        run: pytest tests/ -v --cov=acme_sdk --cov-report=term-missing
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install ruff
-
-      - name: Check formatting
-        run: ruff format --check src/ tests/
-YAMLEOF
-git add .github/workflows/ci.yml
+# Add Python 3.12 to the supported versions in pyproject.toml
+sed -i.bak 's/"Programming Language :: Python :: 3.11"/"Programming Language :: Python :: 3.11",\n    "Programming Language :: Python :: 3.12"/' pyproject.toml && rm -f pyproject.toml.bak
+git add pyproject.toml
 
 CI_REF=""
 if [[ -n "$CI_ISSUE" ]]; then
