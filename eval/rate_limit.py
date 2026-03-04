@@ -53,7 +53,7 @@ def throttled_reset(repo: str, script_dir: str) -> None:
     )
     result = subprocess.run(
         ["bash", f"{script_dir}/setup_github.sh", repo],
-        capture_output=True, text=True, timeout=600,
+        capture_output=True, text=True, timeout=600, cwd=script_dir,
     )
     if result.returncode != 0:
         logger.error("setup_github.sh failed:\n%s", result.stderr)
