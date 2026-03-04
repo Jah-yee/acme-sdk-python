@@ -20,6 +20,7 @@ import logging
 import os
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -207,7 +208,7 @@ def run_read_tasks(
         return
 
     logger.info("=== Running %d read/analysis tasks ===", len(tasks))
-    dataset_name = f"eval-read-{int(time.time())}"
+    dataset_name = f"eval-read-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     dataset_id = create_dataset(client, tasks, dataset_name)
 
     for arm in arms:
@@ -232,7 +233,7 @@ def run_write_tasks(
 
     for task in tasks:
         task_list = [task]
-        dataset_name = f"eval-write-{task['id']}-{int(time.time())}"
+        dataset_name = f"eval-write-{task['id']}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         dataset_id = create_dataset(client, task_list, dataset_name)
 
         for arm in arms:
