@@ -253,8 +253,9 @@ def apply_actions(repo: str, actions: list[dict]) -> None:
                     _gh(["issue", "edit", str(a["number"]), "--repo", repo,
                          "--add-label", ",".join(a["add"])])
                 if a["remove"]:
+                    # check=False: label may already be gone (e.g., deleted via label_delete)
                     _gh(["issue", "edit", str(a["number"]), "--repo", repo,
-                         "--remove-label", ",".join(a["remove"])])
+                         "--remove-label", ",".join(a["remove"])], check=False)
             elif op == "issue_assignees":
                 if a["add"]:
                     _gh(["issue", "edit", str(a["number"]), "--repo", repo,
@@ -290,7 +291,7 @@ def apply_actions(repo: str, actions: list[dict]) -> None:
                          "--add-label", ",".join(a["add"])])
                 if a["remove"]:
                     _gh(["pr", "edit", str(a["number"]), "--repo", repo,
-                         "--remove-label", ",".join(a["remove"])])
+                         "--remove-label", ",".join(a["remove"])], check=False)
             elif op == "pr_assignees":
                 if a["add"]:
                     _gh(["pr", "edit", str(a["number"]), "--repo", repo,
