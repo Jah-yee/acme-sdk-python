@@ -7,55 +7,23 @@ A fake-but-realistic Python SDK (`acme-sdk-python`) used as a **test bed** for a
 - **MCP arm**: GitHub MCP server (`@modelcontextprotocol/server-github`)
 - **Skill arms**: `gh` CLI reference skill files (two variants: LobeHub and Vault)
 
-This is for a talk: "MCP vs. Command Line: A Head-to-Head Evaluation of Agent Tool Integration Patterns" (AI Engineer Miami).
+For a talk: "MCP vs. Command Line: A Head-to-Head Evaluation of Agent Tool Integration Patterns" (AI Engineer Miami).
 
 **GitHub repo**: `seldo/acme-sdk-python`
 
 ---
 
-## What Was Originally Requested vs. What Was Built
+## Status
 
-### ✅ Completed
+All deliverables from the original spec are complete. The eval harness has been run end-to-end (Tier 1 dry run: 15/15 correct across all 3 arms). Ready for the full live run.
 
-| Deliverable | Status | Notes |
-|---|---|---|
-| SDK source code (`src/acme_sdk/`) | ✅ Done | Full implementation: client, models, auth, exporters, utils |
-| Tests (`tests/`) | ✅ Done | Full test suite |
-| Docs (`docs/`) | ✅ Done | 4 doc files |
-| Examples (`examples/`) | ✅ Done | 3 example scripts |
-| `.github/` templates | ✅ Done | Issue + PR templates |
-| `pyproject.toml`, `LICENSE`, etc. | ✅ Done | |
-| `build_repo.sh` | ✅ Done | Initial repo scaffolding script (not needed post-setup) |
-| `setup_github.sh` | ✅ Done | Creates all GitHub metadata; also serves as reset |
-| `eval/tasks.json` | ✅ Done | 25 tasks, but see **Known Bugs** below |
-| `eval/README.md` | ✅ Done | Stale: still references deleted `reset_repo.sh` |
-| Eval harness (`eval/run_eval.py`) | ✅ Done (bonus) | Never been run end-to-end |
-| `eval/arms.py` | ✅ Done | 3-arm config (mcp, lobehub, vault) |
-| `eval/evaluators.py` | ✅ Done | 5 evaluators: correctness, quality, efficiency, latency, fidelity |
-| `eval/resolve_numbers.py` | ✅ Done | Dynamically resolves `{{ISSUE_*}}` / `{{PR_*}}` placeholders |
-| `eval/rate_limit.py` | ✅ Done | Rate limiting for setup_github.sh calls |
-| `eval/skills/` | ✅ Done | Both skill files present |
+- `build_repo.sh` — initial scaffolding (not needed post-setup)
+- `setup_github.sh` — idempotent GitHub metadata setup/reset
+- `eval/tasks.json` — 25 tasks across 4 tiers (5/6/6/8)
+- `eval/run_eval.py`, `arms.py`, `evaluators.py`, `resolve_numbers.py`, `rate_limit.py` — eval harness
+- `eval/skills/` — both skill files (LobeHub, Vault)
 
-### ⚠️ Gaps vs. Original Spec
-
-**1. `eval/reset_repo.sh` was removed**
-
-Was in the original spec; was deleted as redundant because `setup_github.sh` handles both setup and idempotent cleanup.
-
-`eval/README.md` still references it — needs updating.
-
-**2. GitHub repo state is stale**
-
-`setup_github.sh` has been run many times, leaving ~700+ orphaned closed issues/PRs. As of last check, only 1 open issue exists (#732 OTLP timeout). The repo needs `setup_github.sh seldo/acme-sdk-python` re-run to restore the full 12-open-issues + 3-open-PRs state.
-
----
-
-## Known Bugs in tasks.json
-
-All previously known bugs have been fixed:
-- T01 explanation now lists all 5 open bugs (was missing the JSON unicode bug).
-- T02 explanation now correctly notes assignees fail silently (value `"no"` was always correct).
-- All hardcoded `#NNN` issue/PR numbers in Tier 1-3 descriptions/notes/state_checks were converted to `{{PLACEHOLDER}}` tokens, so `resolve_numbers.py` substitutes current numbers at runtime.
+The spec's `eval/reset_repo.sh` was dropped as redundant with `setup_github.sh`.
 
 ---
 
@@ -68,18 +36,14 @@ cd /Users/laurievoss/projects/arize/demos/acme-sdk-python
 ./setup_github.sh seldo/acme-sdk-python
 ```
 
-This takes ~5 min. After running, note the new issue/PR numbers printed at the end — they'll be needed.
+Takes ~5 min. Creates 12 open issues, 3 open PRs, 3 milestones. Issue/PR numbers are NOT baked into `tasks.json` — `resolve_numbers.py` substitutes them at runtime from `{{PLACEHOLDER}}` tokens.
 
 ### 2. Configure environment
 
 ```bash
 cp eval/.env.example eval/.env
-# Fill in:
-# ARIZE_API_KEY=
-# ARIZE_SPACE_ID=
-# ANTHROPIC_API_KEY=
-# GITHUB_PERSONAL_ACCESS_TOKEN=
-# EVAL_REPO=seldo/acme-sdk-python
+# Fill in: ARIZE_API_KEY, ARIZE_SPACE_ID, ANTHROPIC_API_KEY,
+# GITHUB_PERSONAL_ACCESS_TOKEN, EVAL_REPO=seldo/acme-sdk-python
 ```
 
 ### 3. Install eval dependencies
@@ -92,14 +56,20 @@ pip install -r requirements.txt
 ### 4. Run
 
 ```bash
+# Tier 1 only, dry run (no Arize logging) — smoke test
+python eval/run_eval.py --tier 1 --dry-run --repo seldo/acme-sdk-python
+
 # Full 3-arm run, 5x per task
 python eval/run_eval.py --repo seldo/acme-sdk-python
 
 # Single arm, single task, 1 run
-python eval/run_eval.py --arm mcp --task T01 --runs 1
+python eval/run_eval.py --arm mcp --task T01 --runs 1 --repo seldo/acme-sdk-python
+```
 
-# Tier 1 only, dry run (no Arize logging)
-python eval/run_eval.py --tier 1 --dry-run
+**Running from inside a Claude Code session**: the harness spawns `claude` as a subprocess via `claude-agent-sdk`, which refuses to recurse. Strip the env vars first:
+
+```bash
+env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT python eval/run_eval.py ...
 ```
 
 ---
@@ -120,8 +90,8 @@ acme-sdk-python/
     ├── evaluators.py       # 5 scoring evaluators
     ├── rate_limit.py       # Rate limiting for reset calls
     ├── resolve_numbers.py  # Dynamic issue/PR number resolution
-    ├── tasks.json          # 25 task definitions (see Known Bugs above)
-    ├── README.md           # Stale: references deleted reset_repo.sh
+    ├── tasks.json          # 25 task definitions (uses {{PLACEHOLDER}} tokens)
+    ├── README.md           # Eval framework overview
     ├── .env.example        # Template for required credentials
     └── skills/
         ├── gh-cli-lobehub.md     # LobeHub gh CLI skill
@@ -135,22 +105,24 @@ acme-sdk-python/
 - **3 arms**: MCP (GitHub MCP server), Skill-LobeHub, Skill-Vault
 - **25 tasks** across 4 tiers (5 / 6 / 6 / 8)
 - **5 runs per task** per arm for variance measurement
-- **5 evaluators**: correctness, output_quality (LLM-as-judge), efficiency (tool calls vs. baseline), latency, tool_fidelity (did agent use the right integration pattern?)
+- **5 evaluators**: correctness, output_quality (LLM-as-judge, Tier 4 only), efficiency (tool calls vs. baseline), latency, tool_fidelity (did agent use the right integration pattern?)
 - Results logged to **Arize AX** via their experiments API
-- Write tasks reset repo state via `setup_github.sh` between runs (via `throttled_reset` in `rate_limit.py`)
+- Write tasks reset repo state via `setup_github.sh` between runs (rate-limited by `rate_limit.py`)
+
+---
+
+## Placeholder Substitution
+
+Issue and PR numbers in `tasks.json` use `{{PLACEHOLDER}}` tokens (e.g., `{{ISSUE_BATCH_SHUTDOWN}}`, `{{PR_CI_MATRIX}}`). `resolve_numbers.py` queries GitHub at eval startup and substitutes real numbers into the raw JSON before parsing. All 16 placeholders (13 issues + 3 PRs) are defined in `ISSUE_KEYS` and `PR_KEYS`.
+
+Never hand-edit numbers back into `tasks.json`, and do not re-add the jq substitution block to `setup_github.sh` — placeholder resolution makes both unnecessary and conflicting.
 
 ---
 
 ## Arize SDK Usage Notes
 
-`run_eval.py` uses `ArizeClient` from `arize` package. The API calls used are:
+`run_eval.py` uses `ArizeClient` from the `arize` package:
 - `client.datasets.create(space_id, name, examples=df)`
 - `client.experiments.run(name, dataset_id, task, evaluators, ...)`
 
 Verify these match the current `arize` SDK before running — the SDK evolves.
-
----
-
-## Task Number Translation
-
-After `setup_github.sh` runs, issue numbers increment because GitHub numbers are sequential. The `resolve_numbers.py` module handles placeholders in the task JSON body (e.g., `{{ISSUE_BATCH_SHUTDOWN}}` → 735), but **task description strings** with hardcoded numbers (T02, T14, T16, T17) need manual updating after a reset. This is a known limitation.

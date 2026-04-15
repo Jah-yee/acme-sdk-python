@@ -58,7 +58,9 @@ Each task is run **5 times** per arm to measure variance.
 
 1. The `acme-sdk-python` repo must be pushed to GitHub
 2. `setup_github.sh` must have been run to create issues, PRs, etc.
-3. Note the actual issue/PR numbers and update `tasks.json` if they differ from defaults
+3. Credentials configured in `eval/.env` (see `.env.example`)
+
+Issue/PR numbers are NOT baked into `tasks.json` — `resolve_numbers.py` substitutes `{{PLACEHOLDER}}` tokens from the live repo at runtime.
 
 ### Setup
 
@@ -68,6 +70,14 @@ gh repo create <org>/acme-sdk-python --public --source=. --push
 
 # 2. Create GitHub metadata (issues, PRs, labels, milestones)
 ./setup_github.sh <org>/acme-sdk-python
+```
+
+### Running from inside a Claude Code session
+
+The harness spawns `claude` as a subprocess via `claude-agent-sdk`, which refuses to recurse. Strip the env vars first:
+
+```bash
+env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT python run_eval.py ...
 ```
 
 ### Between Runs
@@ -98,7 +108,7 @@ After each write-operation task run, reset the repo by re-running `setup_github.
 
 ## Important Notes
 
-- **Issue numbers**: `setup_github.sh` creates issues sequentially; numbers increment with each run. `resolve_numbers.py` resolves `{{PLACEHOLDER}}` tokens in all task descriptions, notes, criteria, and state checks at runtime — no manual updating needed.
+- **Issue numbers**: `setup_github.sh` creates issues sequentially; numbers increment with each run. `resolve_numbers.py` resolves `{{PLACEHOLDER}}` tokens in all task descriptions, notes, criteria, and state checks at runtime — no manual updating needed. `setup_github.sh` does NOT write numbers into `tasks.json`; do not re-add the jq substitution block that used to live there.
 - **Idempotency**: `setup_github.sh` is safe to run multiple times — it cleans up previous state before recreating.
 - **Ground truth**: For Tier 4 analysis tasks, ground truth is evaluated by LLM-as-judge against criteria, not exact match.
 - **Timing**: Issue open/close timestamps will be artificial (created in the same script run). Task T22 results should note this.
