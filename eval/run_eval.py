@@ -308,16 +308,33 @@ def run_experiment_for_arm(
     experiment_name = f"{arm}-run{run_index + 1}"
     logger.info("Running experiment: %s", experiment_name)
 
-    experiment, experiment_df = client.experiments.run(
-        name=experiment_name,
-        dataset_id=dataset_id,
-        task=task_fn,
-        evaluators=[correctness, output_quality, efficiency, latency, tool_fidelity],
-        concurrency=1,  # Sequential to avoid rate limits
-        exit_on_error=False,
-        dry_run=dry_run,
-        timeout=600,  # 10 min — tier 4 analysis tasks can be slow
-    )
+    max_attempts = 4
+    backoff = 10
+    for attempt in range(1, max_attempts + 1):
+        try:
+            experiment, experiment_df = client.experiments.run(
+                name=experiment_name,
+                dataset_id=dataset_id,
+                task=task_fn,
+                evaluators=[correctness, output_quality, efficiency, latency, tool_fidelity],
+                concurrency=1,  # Sequential to avoid rate limits
+                exit_on_error=False,
+                dry_run=dry_run,
+                timeout=600,  # 10 min — tier 4 analysis tasks can be slow
+            )
+            break
+        except Exception as e:
+            # Arize gRPC/Flight uploads can transiently fail with connection resets.
+            # Retry the whole experiment.run() — task results are held in-memory until
+            # upload succeeds, so a retry re-uploads without re-running tasks only if
+            # the SDK caches them; if not, tasks re-run (acceptable cost vs. losing all).
+            if attempt == max_attempts:
+                logger.error("Experiment %s failed after %d attempts: %s", experiment_name, attempt, e)
+                raise
+            logger.warning("Experiment %s attempt %d/%d failed: %s. Retrying in %ds...",
+                           experiment_name, attempt, max_attempts, e, backoff)
+            time.sleep(backoff)
+            backoff *= 2
 
     logger.info("Experiment %s complete. Results:\n%s", experiment_name, experiment_df.to_string())
 

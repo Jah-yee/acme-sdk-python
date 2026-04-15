@@ -41,16 +41,31 @@ def wait_if_needed(min_remaining: int = 500) -> None:
 
 
 def throttled_reset(repo: str, script_dir: str) -> None:
-    """Run setup_github.sh with rate limit check + 60s post-delay."""
+    """Reset repo to snapshot state. Fast path: reconcile.py (~5-30s).
+    Fallback: setup_github.sh + re-snapshot (~3 min)."""
     wait_if_needed(min_remaining=500)
 
-    logger.info("Resetting repo state via setup_github.sh for %s...", repo)
-    # Ensure we're on main before running setup — a previous failed run
-    # may have left the repo on a feature branch.
+    # Ensure we're on main — a previous failed run may have left a feature branch.
     subprocess.run(
         ["git", "checkout", "main"],
         capture_output=True, text=True, timeout=10, cwd=script_dir,
     )
+
+    # Fast path: incremental reconcile against snapshot.
+    logger.info("Attempting fast reconcile for %s...", repo)
+    r = subprocess.run(
+        ["python", f"{script_dir}/eval/repo_state.py", "reconcile", repo],
+        capture_output=True, text=True, timeout=300, cwd=script_dir,
+    )
+    if r.returncode == 0:
+        logger.info("Reconcile complete. Brief 5s cooldown.")
+        time.sleep(5)
+        return
+
+    logger.warning("Reconcile failed (exit %d), falling back to setup_github.sh:\n%s",
+                   r.returncode, r.stderr or r.stdout)
+
+    # Fallback: full setup
     result = subprocess.run(
         ["bash", f"{script_dir}/setup_github.sh", repo],
         capture_output=True, text=True, timeout=600, cwd=script_dir,
@@ -58,6 +73,14 @@ def throttled_reset(repo: str, script_dir: str) -> None:
     if result.returncode != 0:
         logger.error("setup_github.sh failed:\n%s", result.stderr)
         raise RuntimeError(f"setup_github.sh failed with exit code {result.returncode}")
+
+    # Re-snapshot so future reconciles match the fresh state.
+    snap = subprocess.run(
+        ["python", f"{script_dir}/eval/repo_state.py", "snapshot", repo],
+        capture_output=True, text=True, timeout=60, cwd=script_dir,
+    )
+    if snap.returncode != 0:
+        logger.warning("Re-snapshot after fallback failed: %s", snap.stderr)
 
     logger.info("Reset complete. Waiting 60s for rate limit cooldown...")
     time.sleep(60)
