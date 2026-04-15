@@ -16,7 +16,7 @@
       "expected_output": {
         "type": "exact",
         "value": 5,
-        "explanation": "Open bugs: OTLP timeout (#279), Batch shutdown (#282), Config crash (#287), CI Python 3.12 (#288)."
+        "explanation": "Open bugs: OTLP timeout (#{{ISSUE_OTLP_TIMEOUT}}), Batch shutdown (#{{ISSUE_BATCH_SHUTDOWN}}), Config crash (#{{ISSUE_CONFIG_CRASH}}), CI Python 3.12 (#{{ISSUE_CI_PYTHON312}}), JSON unicode (#{{ISSUE_JSON_UNICODE}})."
       }
     },
     {
@@ -24,11 +24,11 @@
       "tier": 1,
       "category": "read",
       "expected_steps": 2,
-      "description": "Who is assigned to issue #282 (Batch exporter drops last batch on shutdown)?",
+      "description": "How many comments does the issue titled 'OTLP exporter fails silently on connection timeout' have?",
       "expected_output": {
         "type": "exact",
-        "value": "no",
-        "explanation": "Alice Chen is assigned to the batch exporter shutdown bug (#282)."
+        "value": 2,
+        "explanation": "setup_github.sh adds exactly 2 comments to the OTLP timeout issue; it is the only issue with any comments."
       }
     },
     {
@@ -40,7 +40,7 @@
       "expected_output": {
         "type": "exact",
         "value": "Draft: gRPC transport for OTLP",
-        "explanation": "PR #293 is the most recently created PR."
+        "explanation": "PR #{{PR_GRPC_DRAFT}} is the most recently created PR."
       }
     },
     {
@@ -48,7 +48,7 @@
       "tier": 1,
       "category": "read",
       "expected_steps": 2,
-      "description": "Is issue #285 (Typo in README.md) assigned to anyone?",
+      "description": "Is issue #{{ISSUE_README_TYPO}} (Typo in README.md) assigned to anyone?",
       "expected_output": {
         "type": "exact",
         "value": "no",
@@ -89,7 +89,7 @@
             "JSON file exporter doesn't handle unicode properly"
           ]
         },
-        "explanation": "The batch shutdown bug has PR #291, the CI bug has PR #292. The OTLP timeout and config crash bugs have no PRs."
+        "explanation": "The batch shutdown bug has PR #{{PR_FIX_BATCH}}, the CI bug has PR #{{PR_CI_MATRIX}}. The OTLP timeout and config crash bugs have no PRs."
       }
     },
     {
@@ -172,7 +172,7 @@
           "Add Python 3.12 to CI matrix",
           "Draft: gRPC transport for OTLP"
         ],
-        "explanation": "PR #291 has an approval from Bob. PRs #292 and #293 have no reviews."
+        "explanation": "PR #{{PR_FIX_BATCH}} has an approval from Bob. PRs #{{PR_CI_MATRIX}} and #{{PR_GRPC_DRAFT}} have no reviews."
       }
     },
     {
@@ -217,17 +217,17 @@
       "tier": 3,
       "category": "write",
       "expected_steps": 10,
-      "description": "The word 'recieve' appears in README.md. Create a branch called `fix/readme-typo`, fix the typo, commit with an appropriate message, push, and open a PR that references issue #285.",
+      "description": "The word 'recieve' appears in README.md. Create a branch called `fix/readme-typo`, fix the typo, commit with an appropriate message, push, and open a PR that references issue #{{ISSUE_README_TYPO}}.",
       "expected_output": {
         "type": "state_check",
         "checks": [
           "Branch fix/readme-typo exists on remote",
           "README.md on that branch has 'receive' (not 'recieve')",
           "A PR exists from fix/readme-typo to main",
-          "PR body or title references issue #285",
+          "PR body or title references issue #{{ISSUE_README_TYPO}}",
           "Commit message is descriptive (e.g., 'fix: correct typo in README.md')"
         ],
-        "note": "Issue #285 is the typo issue. Agent should reference it."
+        "note": "Issue #{{ISSUE_README_TYPO}} is the typo issue. Agent should reference it."
       }
     },
     {
@@ -235,15 +235,15 @@
       "tier": 3,
       "category": "write",
       "expected_steps": 4,
-      "description": "Add the label `needs-triage` to issues #287 and #290.",
+      "description": "Add the label `needs-triage` to issues #{{ISSUE_CONFIG_CRASH}} and #{{ISSUE_JSON_UNICODE}}.",
       "expected_output": {
         "type": "state_check",
         "checks": [
           "Label 'needs-triage' exists (created if necessary)",
-          "Issue #287 has the 'needs-triage' label",
-          "Issue #290 has the 'needs-triage' label"
+          "Issue #{{ISSUE_CONFIG_CRASH}} has the 'needs-triage' label",
+          "Issue #{{ISSUE_JSON_UNICODE}} has the 'needs-triage' label"
         ],
-        "note": "Issue #287 is the config crash bug, #290 is the unicode bug."
+        "note": "Issue #{{ISSUE_CONFIG_CRASH}} is the config crash bug, #{{ISSUE_JSON_UNICODE}} is the unicode bug."
       }
     },
     {
@@ -251,12 +251,12 @@
       "tier": 3,
       "category": "write",
       "expected_steps": 5,
-      "description": "Close issue #285 (the README typo) with a comment saying 'Fixed in PR #X' (use the actual PR number if one exists, otherwise note that no PR was found).",
+      "description": "Close issue #{{ISSUE_README_TYPO}} (the README typo) with a comment saying 'Fixed in PR #X' (use the actual PR number if one exists, otherwise note that no PR was found).",
       "expected_output": {
         "type": "state_check",
         "checks": [
-          "Issue #285 is closed",
-          "Issue #285 has a comment referencing a PR number or stating no PR exists"
+          "Issue #{{ISSUE_README_TYPO}} is closed",
+          "Issue #{{ISSUE_README_TYPO}} has a comment referencing a PR number or stating no PR exists"
         ]
       }
     },
@@ -265,11 +265,11 @@
       "tier": 3,
       "category": "write",
       "expected_steps": 3,
-      "description": "Add a review comment to PR #292 saying 'LGTM — just verify the 3.12 tests pass on the ARM runner too.'",
+      "description": "Add a review comment to PR #{{PR_CI_MATRIX}} saying 'LGTM — just verify the 3.12 tests pass on the ARM runner too.'",
       "expected_output": {
         "type": "state_check",
         "checks": [
-          "PR #292 has a review or comment containing the specified text"
+          "PR #{{PR_CI_MATRIX}} has a review or comment containing the specified text"
         ]
       }
     },
@@ -278,15 +278,15 @@
       "tier": 3,
       "category": "write",
       "expected_steps": 5,
-      "description": "Create a new label called `performance` with color `#ff9900` and description 'Performance-related issues', then apply it to issue #283.",
+      "description": "Create a new label called `performance` with color `#ff9900` and description 'Performance-related issues', then apply it to issue #{{ISSUE_RETRY_CONFIG}}.",
       "expected_output": {
         "type": "state_check",
         "checks": [
           "Label 'performance' exists with color ff9900",
           "Label has description 'Performance-related issues'",
-          "Issue #283 has the 'performance' label"
+          "Issue #{{ISSUE_RETRY_CONFIG}} has the 'performance' label"
         ],
-        "note": "Issue #283 is the retry config enhancement."
+        "note": "Issue #{{ISSUE_RETRY_CONFIG}} is the retry config enhancement."
       }
     },
     {
@@ -350,7 +350,7 @@
         "type": "llm_judge",
         "criteria": [
           "Lists all 3 open PRs",
-          "Reports review status: PR #291 approved, PR #292 no reviews, PR #293 no reviews (draft)",
+          "Reports review status: PR #{{PR_FIX_BATCH}} approved, PR #{{PR_CI_MATRIX}} no reviews, PR #{{PR_GRPC_DRAFT}} no reviews (draft)",
           "Reports CI status for each PR",
           "Reports merge conflict status",
           "Reports age or creation date for each PR"

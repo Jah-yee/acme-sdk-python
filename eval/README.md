@@ -28,13 +28,13 @@ Contains 25 evaluation tasks across 4 tiers:
 | 1    | 5     | Single-operation lookups | "How many open bugs?" |
 | 2    | 6     | Multi-step reads | "Which bugs have PRs?" |
 | 3    | 6     | Write operations | "Create an issue and add it to a milestone" |
-| 4    | 8     | Analysis/synthesis | "Generate a changelog between two tags" |
+| 4    | 8     | Analysis/synthesis | "Compare v1.0.0 and v1.1.0 milestones" |
 
 ### Task Categories
 
 - **read**: Queries that don't modify repo state
 - **write**: Operations that create/modify issues, PRs, branches, labels
-- **analysis**: Complex reasoning over repo data (git history, cross-referencing)
+- **analysis**: Complex reasoning over repo data (milestones, labels, PR audits, cross-referencing)
 
 ## Metrics
 
@@ -63,24 +63,19 @@ Each task is run **5 times** per arm to measure variance.
 ### Setup
 
 ```bash
-# 1. Build the repo (if not already done)
-./build_repo.sh
-
-# 2. Push to GitHub
+# 1. Push to GitHub (if not already done)
 gh repo create <org>/acme-sdk-python --public --source=. --push
 
-# 3. Create GitHub metadata
+# 2. Create GitHub metadata (issues, PRs, labels, milestones)
 ./setup_github.sh <org>/acme-sdk-python
-
-# 4. Note issue/PR numbers and update tasks.json
 ```
 
 ### Between Runs
 
-After each write-operation task run, reset the repo:
+After each write-operation task run, reset the repo by re-running `setup_github.sh`:
 
 ```bash
-./eval/reset_repo.sh <org>/acme-sdk-python [known_good_sha]
+./setup_github.sh <org>/acme-sdk-python
 ```
 
 ### Task Execution Order
@@ -94,12 +89,16 @@ After each write-operation task run, reset the repo:
 | File | Purpose |
 |------|---------|
 | `tasks.json` | 25 task definitions with expected outputs |
-| `reset_repo.sh` | Resets repo state after write operations |
+| `run_eval.py` | Main eval harness (Arize AX integration) |
+| `arms.py` | 3-arm configurations (mcp, lobehub, vault) |
+| `evaluators.py` | 5 scoring evaluators |
+| `resolve_numbers.py` | Dynamic issue/PR number resolution |
+| `skills/` | Skill files for the two CLI arms |
 | `README.md` | This file |
 
 ## Important Notes
 
-- **Issue numbers**: The `setup_github.sh` script creates issues sequentially. The actual numbers depend on whether the repo is fresh. Always verify issue numbers match `tasks.json`.
-- **Idempotency**: `reset_repo.sh` is safe to run multiple times.
+- **Issue numbers**: `setup_github.sh` creates issues sequentially; numbers increment with each run. `resolve_numbers.py` resolves `{{PLACEHOLDER}}` tokens in all task descriptions, notes, criteria, and state checks at runtime — no manual updating needed.
+- **Idempotency**: `setup_github.sh` is safe to run multiple times — it cleans up previous state before recreating.
 - **Ground truth**: For Tier 4 analysis tasks, ground truth is evaluated by LLM-as-judge against criteria, not exact match.
 - **Timing**: Issue open/close timestamps will be artificial (created in the same script run). Task T22 results should note this.
