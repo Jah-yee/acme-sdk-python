@@ -276,11 +276,6 @@
       "name": "v2.0"
     },
     {
-      "color": "ff9900",
-      "description": "Performance-related issues",
-      "name": "performance"
-    },
-    {
       "color": "d73a4a",
       "description": "Something isn't working",
       "name": "bug"
