@@ -15,10 +15,11 @@ For a talk: "MCP vs. Command Line: A Head-to-Head Evaluation of Agent Tool Integ
 
 ## Status
 
-All deliverables from the original spec are complete. The eval harness has been run end-to-end (Tier 1 dry run: 15/15 correct across all 3 arms). Ready for the full live run.
+All deliverables from the original spec are complete. Two full `--runs 1` passes (all 3 arms × 25 tasks) have been logged to Arize AX successfully. The reconciler cut full-eval wall time from ~15 hr to ~55 min — scaling to `--runs 5` is now feasible (~4-5 hr).
 
 - `build_repo.sh` — initial scaffolding (not needed post-setup)
-- `setup_github.sh` — idempotent GitHub metadata setup/reset
+- `setup_github.sh` — cold-path full rebuild of GitHub metadata
+- `eval/repo_state.py` + `repo_state.json` — fast incremental reconciler for warm resets
 - `eval/tasks.json` — 25 tasks across 4 tiers (5/6/6/8)
 - `eval/run_eval.py`, `arms.py`, `evaluators.py`, `resolve_numbers.py`, `rate_limit.py` — eval harness
 - `eval/skills/` — both skill files (LobeHub, Vault)
@@ -31,12 +32,19 @@ The spec's `eval/reset_repo.sh` was dropped as redundant with `setup_github.sh`.
 
 ### 1. Restore GitHub repo state
 
+Cold setup (first time, or if the repo is in an unknown state):
+
 ```bash
 cd /Users/laurievoss/projects/arize/demos/acme-sdk-python
 ./setup_github.sh seldo/acme-sdk-python
+python eval/repo_state.py snapshot seldo/acme-sdk-python
 ```
 
-Takes ~5 min. Creates 12 open issues, 3 open PRs, 3 milestones. Issue/PR numbers are NOT baked into `tasks.json` — `resolve_numbers.py` substitutes them at runtime from `{{PLACEHOLDER}}` tokens.
+Takes ~5 min. Creates 12 open issues, 3 open PRs, 3 milestones, and captures a snapshot for fast resets.
+
+**Between eval runs**, the harness calls `python eval/repo_state.py reconcile` (not `setup_github.sh`) — this diffs live state against the snapshot and applies only the mutations needed to restore it (~5-10s instead of ~3 min). If structural drift can't be reconciled (deleted issue, merged PR, deleted branch), the harness automatically falls back to `setup_github.sh` and re-snapshots.
+
+Issue/PR numbers are NOT baked into `tasks.json` — `resolve_numbers.py` substitutes them at runtime from `{{PLACEHOLDER}}` tokens.
 
 ### 2. Configure environment
 
@@ -79,7 +87,7 @@ env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT python eval/run_eval.py ...
 ```
 acme-sdk-python/
 ├── build_repo.sh           # Initial scaffolding script (not needed post-setup)
-├── setup_github.sh         # Creates/resets GitHub issues, PRs, labels, milestones
+├── setup_github.sh         # Cold-path: full rebuild of GitHub metadata (~3 min)
 ├── src/acme_sdk/           # Fake SDK source
 ├── tests/                  # Test suite
 ├── docs/                   # Documentation
@@ -88,7 +96,9 @@ acme-sdk-python/
     ├── run_eval.py         # Main eval harness
     ├── arms.py             # 3-arm configurations (mcp, lobehub, vault)
     ├── evaluators.py       # 5 scoring evaluators
-    ├── rate_limit.py       # Rate limiting for reset calls
+    ├── rate_limit.py       # Rate-limit checks + reset orchestration (reconcile → fallback)
+    ├── repo_state.py       # Fast incremental reconciler (snapshot / reconcile / diff)
+    ├── repo_state.json     # Expected repo state snapshot for reconciler
     ├── resolve_numbers.py  # Dynamic issue/PR number resolution
     ├── tasks.json          # 25 task definitions (uses {{PLACEHOLDER}} tokens)
     ├── README.md           # Eval framework overview

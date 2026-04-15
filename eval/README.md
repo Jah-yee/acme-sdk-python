@@ -82,16 +82,31 @@ env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT python run_eval.py ...
 
 ### Between Runs
 
-After each write-operation task run, reset the repo by re-running `setup_github.sh`:
+Write-task runs reset repo state via `repo_state.py` (fast incremental
+reconciler). It diffs the live repo against `repo_state.json` (a snapshot
+of expected state) and applies only the necessary mutations — typically
+~5-10s per reset vs. ~3 min for `setup_github.sh`. If structural drift
+can't be reconciled (deleted issues, merged PRs), the harness automatically
+falls back to `setup_github.sh` and re-snapshots.
+
+Manual reset commands:
 
 ```bash
+# Cold setup (first time, or full rebuild)
 ./setup_github.sh <org>/acme-sdk-python
+python eval/repo_state.py snapshot <org>/acme-sdk-python
+
+# Fast reconcile (between eval runs — called automatically by harness)
+python eval/repo_state.py reconcile <org>/acme-sdk-python
+
+# Preview diff without applying
+python eval/repo_state.py diff <org>/acme-sdk-python
 ```
 
 ### Task Execution Order
 
 1. Run all **Tier 1-2 read tasks** first (no reset needed between them)
-2. Run **Tier 3 write tasks** one at a time, resetting between each
+2. Run **Tier 3 write tasks** one at a time, reconciling between each
 3. Run **Tier 4 analysis tasks** (read-only, no reset needed)
 
 ## Files
@@ -103,12 +118,15 @@ After each write-operation task run, reset the repo by re-running `setup_github.
 | `arms.py` | 3-arm configurations (mcp, lobehub, vault) |
 | `evaluators.py` | 5 scoring evaluators |
 | `resolve_numbers.py` | Dynamic issue/PR number resolution |
+| `repo_state.py` | Snapshot + fast incremental reconciler for resets |
+| `repo_state.json` | Captured expected repo state (issues, PRs, labels, milestones) |
+| `rate_limit.py` | Rate-limit checks + reset orchestration (reconcile → fallback to setup) |
 | `skills/` | Skill files for the two CLI arms |
 | `README.md` | This file |
 
 ## Important Notes
 
 - **Issue numbers**: `setup_github.sh` creates issues sequentially; numbers increment with each run. `resolve_numbers.py` resolves `{{PLACEHOLDER}}` tokens in all task descriptions, notes, criteria, and state checks at runtime — no manual updating needed. `setup_github.sh` does NOT write numbers into `tasks.json`; do not re-add the jq substitution block that used to live there.
-- **Idempotency**: `setup_github.sh` is safe to run multiple times — it cleans up previous state before recreating.
+- **Idempotency**: `setup_github.sh` is safe to run multiple times — it cleans up previous state before recreating. After any full-setup rebuild, re-snapshot with `python eval/repo_state.py snapshot <repo>` so the reconciler targets match the fresh state.
 - **Ground truth**: For Tier 4 analysis tasks, ground truth is evaluated by LLM-as-judge against criteria, not exact match.
 - **Timing**: Issue open/close timestamps will be artificial (created in the same script run). Task T22 results should note this.
