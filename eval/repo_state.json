@@ -8,7 +8,7 @@
         "exporter"
       ],
       "milestone": null,
-      "number": 1205,
+      "number": 1315,
       "state": "open",
       "title": "JSON file exporter doesn't handle unicode properly"
     },
@@ -20,7 +20,7 @@
         "v2.0"
       ],
       "milestone": "v2.0",
-      "number": 1204,
+      "number": 1314,
       "state": "open",
       "title": "Add metrics collection support"
     },
@@ -32,7 +32,7 @@
         "ci"
       ],
       "milestone": null,
-      "number": 1203,
+      "number": 1313,
       "state": "open",
       "title": "CI workflow doesn't run on Python 3.12"
     },
@@ -43,7 +43,7 @@
         "bug"
       ],
       "milestone": null,
-      "number": 1202,
+      "number": 1312,
       "state": "open",
       "title": "Config file parser crashes on empty values"
     },
@@ -55,7 +55,7 @@
         "exporter"
       ],
       "milestone": "v2.0",
-      "number": 1201,
+      "number": 1311,
       "state": "open",
       "title": "Add gRPC transport option for OTLP exporter"
     },
@@ -67,7 +67,7 @@
         "good-first-issue"
       ],
       "milestone": null,
-      "number": 1200,
+      "number": 1310,
       "state": "open",
       "title": "Typo in README.md"
     },
@@ -79,7 +79,7 @@
         "exporter"
       ],
       "milestone": null,
-      "number": 1199,
+      "number": 1309,
       "state": "open",
       "title": "Console exporter output is not configurable"
     },
@@ -90,7 +90,7 @@
         "enhancement"
       ],
       "milestone": "v2.0",
-      "number": 1198,
+      "number": 1308,
       "state": "open",
       "title": "Add retry configuration to client constructor"
     },
@@ -102,7 +102,7 @@
         "critical"
       ],
       "milestone": null,
-      "number": 1197,
+      "number": 1307,
       "state": "open",
       "title": "Batch exporter drops last batch on shutdown"
     },
@@ -114,7 +114,7 @@
         "good-first-issue"
       ],
       "milestone": null,
-      "number": 1196,
+      "number": 1306,
       "state": "open",
       "title": "Documentation for OAuth authentication is incomplete"
     },
@@ -125,7 +125,7 @@
         "enhancement"
       ],
       "milestone": "v2.0",
-      "number": 1195,
+      "number": 1305,
       "state": "open",
       "title": "Add support for custom span attributes"
     },
@@ -137,7 +137,7 @@
         "exporter"
       ],
       "milestone": null,
-      "number": 1194,
+      "number": 1304,
       "state": "open",
       "title": "OTLP exporter fails silently on connection timeout"
     },
@@ -148,7 +148,7 @@
         "enhancement"
       ],
       "milestone": "v1.1.0",
-      "number": 1193,
+      "number": 1303,
       "state": "closed",
       "title": "Add OAuth 2.0 authentication support"
     },
@@ -159,7 +159,7 @@
         "enhancement"
       ],
       "milestone": "v1.1.0",
-      "number": 1192,
+      "number": 1302,
       "state": "closed",
       "title": "Support batch processing for high-throughput workloads"
     },
@@ -171,7 +171,7 @@
         "exporter"
       ],
       "milestone": "v1.1.0",
-      "number": 1191,
+      "number": 1301,
       "state": "closed",
       "title": "Add console/stdout exporter for debugging"
     },
@@ -183,7 +183,7 @@
         "exporter"
       ],
       "milestone": "v1.1.0",
-      "number": 1190,
+      "number": 1300,
       "state": "closed",
       "title": "Add JSON file exporter"
     },
@@ -195,7 +195,7 @@
         "exporter"
       ],
       "milestone": "v1.1.0",
-      "number": 1189,
+      "number": 1299,
       "state": "closed",
       "title": "OTLP exporter silently drops spans over batch limit"
     },
@@ -206,7 +206,7 @@
         "bug"
       ],
       "milestone": "v1.1.0",
-      "number": 1188,
+      "number": 1298,
       "state": "closed",
       "title": "Config parser ignores ACME_TIMEOUT env var"
     },
@@ -217,7 +217,7 @@
         "bug"
       ],
       "milestone": "v1.0.0",
-      "number": 1187,
+      "number": 1297,
       "state": "closed",
       "title": "Retry logic doesn't handle connection refused errors"
     },
@@ -228,7 +228,7 @@
         "bug"
       ],
       "milestone": "v1.0.0",
-      "number": 1186,
+      "number": 1296,
       "state": "closed",
       "title": "Span duration_ms not computed when end_time is set"
     },
@@ -239,7 +239,7 @@
         "bug"
       ],
       "milestone": "v1.0.0",
-      "number": 1185,
+      "number": 1295,
       "state": "closed",
       "title": "Client throws unhandled exception on 401 response"
     }
@@ -295,21 +295,21 @@
     {
       "description": "Initial release of the Acme SDK",
       "due_on": "2024-06-30T00:00:00Z",
-      "number": 149,
+      "number": 161,
       "state": "closed",
       "title": "v1.0.0"
     },
     {
       "description": "Exporters, batch processing, and OAuth support",
       "due_on": "2024-09-14T00:00:00Z",
-      "number": 150,
+      "number": 162,
       "state": "closed",
       "title": "v1.1.0"
     },
     {
       "description": "Major feature release: gRPC, metrics, custom attributes",
       "due_on": "2025-02-28T00:00:00Z",
-      "number": 151,
+      "number": 163,
       "state": "open",
       "title": "v2.0"
     }
@@ -322,7 +322,7 @@
       "head": "feat/grpc-transport",
       "labels": [],
       "milestone": null,
-      "number": 1208,
+      "number": 1318,
       "state": "open",
       "title": "Draft: gRPC transport for OTLP"
     },
@@ -333,7 +333,7 @@
       "head": "ci/add-python-3.12",
       "labels": [],
       "milestone": null,
-      "number": 1207,
+      "number": 1317,
       "state": "open",
       "title": "Add Python 3.12 to CI matrix"
     },
@@ -344,8 +344,184 @@
       "head": "fix/batch-shutdown",
       "labels": [],
       "milestone": null,
-      "number": 1206,
+      "number": 1316,
       "state": "open",
+      "title": "Fix batch exporter shutdown race condition"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": true,
+      "head": "feat/grpc-transport",
+      "labels": [],
+      "milestone": null,
+      "number": 1294,
+      "state": "closed",
+      "title": "Draft: gRPC transport for OTLP"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "ci/add-python-3.12",
+      "labels": [],
+      "milestone": null,
+      "number": 1293,
+      "state": "closed",
+      "title": "Add Python 3.12 to CI matrix"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/batch-shutdown",
+      "labels": [],
+      "milestone": null,
+      "number": 1292,
+      "state": "closed",
+      "title": "Fix batch exporter shutdown race condition"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/readme-typo",
+      "labels": [],
+      "milestone": null,
+      "number": 1270,
+      "state": "closed",
+      "title": "Fix typo: 'recieve' \u2192 'receive' in README.md"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/readme-typo",
+      "labels": [],
+      "milestone": null,
+      "number": 1269,
+      "state": "closed",
+      "title": "fix: correct typo 'recieve' -> 'receive' in README"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": true,
+      "head": "feat/grpc-transport",
+      "labels": [],
+      "milestone": null,
+      "number": 1265,
+      "state": "closed",
+      "title": "Draft: gRPC transport for OTLP"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "ci/add-python-3.12",
+      "labels": [],
+      "milestone": null,
+      "number": 1264,
+      "state": "closed",
+      "title": "Add Python 3.12 to CI matrix"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/batch-shutdown",
+      "labels": [],
+      "milestone": null,
+      "number": 1263,
+      "state": "closed",
+      "title": "Fix batch exporter shutdown race condition"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/readme-typo",
+      "labels": [],
+      "milestone": null,
+      "number": 1241,
+      "state": "closed",
+      "title": "Fix typo: 'recieve' \u2192 'receive' in README.md"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": true,
+      "head": "feat/grpc-transport",
+      "labels": [],
+      "milestone": null,
+      "number": 1237,
+      "state": "closed",
+      "title": "Draft: gRPC transport for OTLP"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "ci/add-python-3.12",
+      "labels": [],
+      "milestone": null,
+      "number": 1236,
+      "state": "closed",
+      "title": "Add Python 3.12 to CI matrix"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/batch-shutdown",
+      "labels": [],
+      "milestone": null,
+      "number": 1235,
+      "state": "closed",
+      "title": "Fix batch exporter shutdown race condition"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/readme-typo",
+      "labels": [],
+      "milestone": null,
+      "number": 1213,
+      "state": "closed",
+      "title": "fix: correct typo 'recieve' -> 'receive' in README.md"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": true,
+      "head": "feat/grpc-transport",
+      "labels": [],
+      "milestone": null,
+      "number": 1208,
+      "state": "closed",
+      "title": "Draft: gRPC transport for OTLP"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "ci/add-python-3.12",
+      "labels": [],
+      "milestone": null,
+      "number": 1207,
+      "state": "closed",
+      "title": "Add Python 3.12 to CI matrix"
+    },
+    {
+      "assignees": [],
+      "base": "main",
+      "draft": false,
+      "head": "fix/batch-shutdown",
+      "labels": [],
+      "milestone": null,
+      "number": 1206,
+      "state": "closed",
       "title": "Fix batch exporter shutdown race condition"
     },
     {

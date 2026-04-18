@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA5MjY6b1IzVg==",
+    "name": "eval-write-T14-20260415-203132",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-16T03:31:32.104584Z",
+    "updated_at": "2026-04-16T03:31:32.104584Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "e089236e-c607-4936-94d7-db9377981031",
+      "created_at": "2026-04-16T03:31:32.104000Z",
+      "updated_at": "2026-04-16T03:31:32.104000Z",
+      "additional_properties": {
+        "attributes.input.value": "Add the label `needs-triage` to issues #1259 and #1262.",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Label 'needs-triage' exists (created if necessary)\", \"Issue #1259 has the 'needs-triage' label\", \"Issue #1262 has the 'needs-triage' label\"], \"note\": \"Issue #1259 is the config crash bug, #1262 is the unicode bug.\"}",
+        "category": "write",
+        "task_id": "T14",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgwNzpmY0pr",
+        "name": "baseline-run3",
+        "dataset_id": "RGF0YXNldDozNDA5MjY6b1IzVg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDU0OkYzUU0=",
+        "created_at": "2026-04-16T03:33:04.409293Z",
+        "updated_at": "2026-04-16T03:33:04.409293Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzM5MDI0NTpLblly"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_2b852c",
+          "example_id": "e089236e-c607-4936-94d7-db9377981031",
+          "output": "{\"output\": \"The label `needs-triage` doesn't exist yet. I'll create it first, then apply it to both issues.Done! The label `needs-triage` has been added to both issues:\\n- [#1259](https://github.com/seldo/acme-sdk-python/issues/1259)\\n- [#1262](https://github.com/seldo/acme-sdk-python/issues/1262)\\n\\nNote: The label didn't exist in the repo, so it was created automatically before being applied.\", \"tool_calls\": 6, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 21.03, \"input_tokens\": 7, \"output_tokens\": 873, \"total_cost_usd\": 0.067325}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/3 passed.\n  [pass] Label 'needs-triage' exists (created if necessary)\n  [pass] Issue #1259 has the 'needs-triage' label\n  [pass] Issue #1262 has the 'needs-triage' label",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "8a4b9bbf805086cd7f8f11acfa4f29e0",
+            "eval.correctness.trace.timestamp": 1776310406611,
+            "eval.efficiency.explanation": "6 tool calls (expected ~4), 5 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.5,
+            "eval.efficiency.trace.id": "171ae112d252298293a3da42ff02d4d1",
+            "eval.efficiency.trace.timestamp": 1776310408143,
+            "eval.latency.explanation": "21.03s | 7 in + 873 out tokens | $0.0673",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "77223dfcdca04b14e34c2f65780d49d4",
+            "eval.latency.trace.timestamp": 1776310408219,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "812d473be56eb2b998d09a8f0542c1f4",
+            "eval.output_quality.trace.timestamp": 1776310408068,
+            "eval.tool_fidelity.explanation": "6/6 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "86013cba93f51e555dff2e9631343cd0",
+            "eval.tool_fidelity.trace.timestamp": 1776310408294,
+            "trace_id": "c74b63c9a7835e5549eecd89f4b7fa02",
+            "trace_timestamp": 1776310384440
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgwNjovWHhv",
+        "name": "baseline-run2",
+        "dataset_id": "RGF0YXNldDozNDA5MjY6b1IzVg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDU0OkYzUU0=",
+        "created_at": "2026-04-16T03:32:18.592963Z",
+        "updated_at": "2026-04-16T03:32:18.592963Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzM5MDI0NTpLblly"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_e689c4",
+          "example_id": "e089236e-c607-4936-94d7-db9377981031",
+          "output": "{\"output\": \"The label `needs-triage` doesn't exist yet. Let me create it first, then apply it to both issues.Done! The label `needs-triage` has been created and successfully added to both issues:\\n- [#1259](https://github.com/seldo/acme-sdk-python/issues/1259)\\n- [#1262](https://github.com/seldo/acme-sdk-python/issues/1262)\", \"tool_calls\": 6, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 24.88, \"input_tokens\": 7, \"output_tokens\": 855, \"total_cost_usd\": 0.070308}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/3 passed.\n  [pass] Label 'needs-triage' exists (created if necessary)\n  [pass] Issue #1259 has the 'needs-triage' label\n  [pass] Issue #1262 has the 'needs-triage' label",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "4ea8dc81508ec8bf2b2b7d33d0482925",
+            "eval.correctness.trace.timestamp": 1776310364748,
+            "eval.efficiency.explanation": "6 tool calls (expected ~4), 5 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.5,
+            "eval.efficiency.trace.id": "df51c9bc54abfbd55ae7ce9063c3918b",
+            "eval.efficiency.trace.timestamp": 1776310369370,
+            "eval.latency.explanation": "24.88s | 7 in + 855 out tokens | $0.0703",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "1a6ffc7f49684149ea220a4c59116151",
+            "eval.latency.trace.timestamp": 1776310369447,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "9bfa3d4c281ef1f38fe24892692693d6",
+            "eval.output_quality.trace.timestamp": 1776310369295,
+            "eval.tool_fidelity.explanation": "6/6 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "017e2914fe9b57e9cbc567d820d3f14d",
+            "eval.tool_fidelity.trace.timestamp": 1776310369519,
+            "trace_id": "c20806c79ef2c11aebfac1cac4dba08f",
+            "trace_timestamp": 1776310338627
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgwNToxSDBU",
+        "name": "baseline-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MjY6b1IzVg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDU0OkYzUU0=",
+        "created_at": "2026-04-16T03:31:42.118653Z",
+        "updated_at": "2026-04-16T03:31:42.118653Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzM5MDI0NTpLblly"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_48b876",
+          "example_id": "e089236e-c607-4936-94d7-db9377981031",
+          "output": "{\"output\": \"The label `needs-triage` doesn't exist yet in the repo. I'll create it first, then apply it to both issues.Done! The label `needs-triage` has been created and successfully added to both issues:\\n- [#1259](https://github.com/seldo/acme-sdk-python/issues/1259)\\n- [#1262](https://github.com/seldo/acme-sdk-python/issues/1262)\", \"tool_calls\": 6, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 17.65, \"input_tokens\": 7, \"output_tokens\": 860, \"total_cost_usd\": 0.073539}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/3 passed.\n  [pass] Label 'needs-triage' exists (created if necessary)\n  [pass] Issue #1259 has the 'needs-triage' label\n  [pass] Issue #1262 has the 'needs-triage' label",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "38955369f78ef3358bd621a6ee8b2cb7",
+            "eval.correctness.trace.timestamp": 1776310321297,
+            "eval.efficiency.explanation": "6 tool calls (expected ~4), 5 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.5,
+            "eval.efficiency.trace.id": "57f57ceaccfae2ae982bb8d51abf66fa",
+            "eval.efficiency.trace.timestamp": 1776310323241,
+            "eval.latency.explanation": "17.65s | 7 in + 860 out tokens | $0.0735",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "a72e291b60426374b29a4e3953960bf7",
+            "eval.latency.trace.timestamp": 1776310323413,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "357b72b9c9799e8f6500d0ccd3ec6826",
+            "eval.output_quality.trace.timestamp": 1776310323166,
+            "eval.tool_fidelity.explanation": "6/6 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "1134cab744ad47e481cc605c9d7ba042",
+            "eval.tool_fidelity.trace.timestamp": 1776310323488,
+            "trace_id": "3c3625312c83304bc1f4bbd6040e55ba",
+            "trace_timestamp": 1776310302533
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA5MjQ6dmpoNg==",
+    "name": "eval-write-T12-20260415-201615",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-16T03:16:15.365302Z",
+    "updated_at": "2026-04-16T03:16:15.365302Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "78f5d582-8de2-4cca-b7b0-422e7ebab05a",
+      "created_at": "2026-04-16T03:16:15.364000Z",
+      "updated_at": "2026-04-16T03:16:15.364000Z",
+      "additional_properties": {
+        "attributes.input.value": "Create a new issue titled 'Add request timeout configuration' with the label `enhancement`, and add it to the v2.0 milestone.",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Issue exists with exact title 'Add request timeout configuration'\", \"Issue has the 'enhancement' label\", \"Issue is in the v2.0 milestone\", \"Issue is open\"]}",
+        "category": "write",
+        "task_id": "T12",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3Nzc5NzpiMWJm",
+        "name": "baseline-run3",
+        "dataset_id": "RGF0YXNldDozNDA5MjQ6dmpoNg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDUyOjRSODU=",
+        "created_at": "2026-04-16T03:17:27.531897Z",
+        "updated_at": "2026-04-16T03:17:27.531897Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzI0NDA3NDpFV1Zt"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_de47f1",
+          "example_id": "78f5d582-8de2-4cca-b7b0-422e7ebab05a",
+          "output": "{\"output\": \"I'll start by fetching the milestones and labels for the repo in parallel to get the required IDs.I have everything I need. The v2.0 milestone number is **157** and the `enhancement` label exists. Now I'll create the issue.The issue has been successfully created:\\n\\n- **Title:** Add request timeout configuration\\n- **Issue #:** [#1268](https://github.com/seldo/acme-sdk-python/issues/1268)\\n- **Label:** `enhancement`\\n- **Milestone:** v2.0\", \"tool_calls\": 5, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 18.53, \"input_tokens\": 8, \"output_tokens\": 667, \"total_cost_usd\": 0.10198}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 4/4 passed.\n  [pass] Issue exists with exact title 'Add request timeout configuration'\n  [pass] Issue has the 'enhancement' label\n  [pass] Issue is in the v2.0 milestone\n  [pass] Issue is open",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "e616397af0cf63a8668268502bc5c39c",
+            "eval.correctness.trace.timestamp": 1776309467227,
+            "eval.efficiency.explanation": "5 tool calls (expected ~4), 4 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.75,
+            "eval.efficiency.trace.id": "07358a17742eda950ab4f43460b0b40e",
+            "eval.efficiency.trace.timestamp": 1776309473487,
+            "eval.latency.explanation": "18.53s | 8 in + 667 out tokens | $0.1020",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "17f4f1903cb9d32484dc2cae61723f58",
+            "eval.latency.trace.timestamp": 1776309473563,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "206f61ab67aef8cbbbf1a3ccbf581d53",
+            "eval.output_quality.trace.timestamp": 1776309473412,
+            "eval.tool_fidelity.explanation": "5/5 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "18f3d4258d8f48cf280bc1d0b6ade8e8",
+            "eval.tool_fidelity.trace.timestamp": 1776309473639,
+            "trace_id": "4ae7340d07b21904c3930a28dc6efa77",
+            "trace_timestamp": 1776309447569
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3Nzc5NTp5NEh0",
+        "name": "baseline-run2",
+        "dataset_id": "RGF0YXNldDozNDA5MjQ6dmpoNg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDUyOjRSODU=",
+        "created_at": "2026-04-16T03:16:54.875208Z",
+        "updated_at": "2026-04-16T03:16:54.875208Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzI0NDA3NDpFV1Zt"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_14530e",
+          "example_id": "78f5d582-8de2-4cca-b7b0-422e7ebab05a",
+          "output": "{\"output\": \"I'll first look up the milestone ID for v2.0, then create the issue. Let me fetch the milestones first.The v2.0 milestone has number `157`. Now I'll create the issue with the label and milestone.The issue has been created successfully! Here's a summary:\\n\\n- **Title:** Add request timeout configuration\\n- **Label:** `enhancement`\\n- **Milestone:** v2.0\\n- **URL:** https://github.com/seldo/acme-sdk-python/issues/1267\", \"tool_calls\": 2, \"tool_names\": [\"Bash\", \"Bash\"], \"latency_seconds\": 15.32, \"input_tokens\": 5, \"output_tokens\": 419, \"total_cost_usd\": 0.041398}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 4/4 passed.\n  [pass] Issue exists with exact title 'Add request timeout configuration'\n  [pass] Issue has the 'enhancement' label\n  [pass] Issue is in the v2.0 milestone\n  [pass] Issue is open",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "576453179b13bc508aca3619ae7a19ed",
+            "eval.correctness.trace.timestamp": 1776309431415,
+            "eval.efficiency.explanation": "2 tool calls (expected ~4), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "606ef3ae1ab61e551ff68812ccc618bb",
+            "eval.efficiency.trace.timestamp": 1776309434655,
+            "eval.latency.explanation": "15.32s | 5 in + 419 out tokens | $0.0414",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "4093baebfbad3b8eb0119773b990c046",
+            "eval.latency.trace.timestamp": 1776309434729,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "718b3d2718223b765b15f6f0d1c8543c",
+            "eval.output_quality.trace.timestamp": 1776309434579,
+            "eval.tool_fidelity.explanation": "2/2 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "d4e65a2e543242641e6824c5b6ae2072",
+            "eval.tool_fidelity.trace.timestamp": 1776309434806,
+            "trace_id": "89177e72384a85c5e9e25592d72918b3",
+            "trace_timestamp": 1776309414904
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3Nzc5NDp5RTBn",
+        "name": "baseline-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MjQ6dmpoNg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDUyOjRSODU=",
+        "created_at": "2026-04-16T03:16:26.386686Z",
+        "updated_at": "2026-04-16T03:16:26.386686Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzI0NDA3NDpFV1Zt"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_d73fcb",
+          "example_id": "78f5d582-8de2-4cca-b7b0-422e7ebab05a",
+          "output": "{\"output\": \"I'll start by fetching the milestones to find the v2.0 milestone ID, then create the issue \\u2014 let me do that in parallel!The v2.0 milestone number is **157** and the `enhancement` label exists. Now I'll create the issue:The issue has been successfully created! Here's a summary:\\n\\n- **Issue #1266**: [Add request timeout configuration](https://github.com/seldo/acme-sdk-python/issues/1266)\\n- **Label**: `enhancement`\\n- **Milestone**: `v2.0`\", \"tool_calls\": 3, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 11.76, \"input_tokens\": 5, \"output_tokens\": 458, \"total_cost_usd\": 0.059707}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 4/4 passed.\n  [pass] Issue exists with exact title 'Add request timeout configuration'\n  [pass] Issue has the 'enhancement' label\n  [pass] Issue is in the v2.0 milestone\n  [pass] Issue is open",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "2f5babaa91936d8c5edc6f92e22e3961",
+            "eval.correctness.trace.timestamp": 1776309399523,
+            "eval.efficiency.explanation": "3 tool calls (expected ~4), 2 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "88235ab6a725e12620b265248477eb2b",
+            "eval.efficiency.trace.timestamp": 1776309402863,
+            "eval.latency.explanation": "11.76s | 5 in + 458 out tokens | $0.0597",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "e2582b6118cac27f49e97659fd166948",
+            "eval.latency.trace.timestamp": 1776309402943,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "e56a01aa94c0f25a17bfb8b75497092e",
+            "eval.output_quality.trace.timestamp": 1776309402788,
+            "eval.tool_fidelity.explanation": "3/3 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "3c269b895acb8903e91d38a8f08f1710",
+            "eval.tool_fidelity.trace.timestamp": 1776309403020,
+            "trace_id": "62f278586f8248703fac9c3b3c06c1d5",
+            "trace_timestamp": 1776309386604
+          }
+        }
+      ]
+    }
+  ]
+}

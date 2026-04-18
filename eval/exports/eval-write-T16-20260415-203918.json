@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA5MzA6a2RWdQ==",
+    "name": "eval-write-T16-20260415-203918",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-16T03:39:18.840560Z",
+    "updated_at": "2026-04-16T03:39:18.840560Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "ae064e4f-c1af-4e89-94f1-6f7e0fb4b1f8",
+      "created_at": "2026-04-16T03:39:18.840000Z",
+      "updated_at": "2026-04-16T03:39:18.840000Z",
+      "additional_properties": {
+        "attributes.input.value": "Add a review comment to PR #1264 saying 'LGTM \u2014 just verify the 3.12 tests pass on the ARM runner too.'",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"PR #1264 has a review or comment containing the specified text\"]}",
+        "category": "write",
+        "task_id": "T16",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgxOTpjRm1R",
+        "name": "baseline-run3",
+        "dataset_id": "RGF0YXNldDozNDA5MzA6a2RWdQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDU4OmtRRm8=",
+        "created_at": "2026-04-16T03:43:50.277078Z",
+        "updated_at": "2026-04-16T03:43:50.277078Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzQ5MTcwNDptMGhi"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_020493",
+          "example_id": "ae064e4f-c1af-4e89-94f1-6f7e0fb4b1f8",
+          "output": "{\"output\": \"Done! A review comment has been added to PR #1264 in `seldo/acme-sdk-python` with the message: *\\\"LGTM \\u2014 just verify the 3.12 tests pass on the ARM runner too.\\\"*\", \"tool_calls\": 1, \"tool_names\": [\"Bash\"], \"latency_seconds\": 7.38, \"input_tokens\": 4, \"output_tokens\": 207, \"total_cost_usd\": 0.022795}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 1/1 passed.\n  [pass] PR #1264 has a review or comment containing the specified text",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "6d739f3542e623909877190598f93215",
+            "eval.correctness.trace.timestamp": 1776311038803,
+            "eval.efficiency.explanation": "1 tool calls (expected ~3)",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "79ef92376999636b29a8bc1f9936d308",
+            "eval.efficiency.trace.timestamp": 1776311039876,
+            "eval.latency.explanation": "7.38s | 4 in + 207 out tokens | $0.0228",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "7011d303fb65f38ce4014c68e72faf7e",
+            "eval.latency.trace.timestamp": 1776311039955,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "79d32e1c79bf302fbc1903b0178ec190",
+            "eval.output_quality.trace.timestamp": 1776311039800,
+            "eval.tool_fidelity.explanation": "1/1 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "0cac7d152a522182ff8db04b91ff30dd",
+            "eval.tool_fidelity.trace.timestamp": 1776311040033,
+            "trace_id": "4ff6b3d9b6f415de181187b438dad1c5",
+            "trace_timestamp": 1776311030310
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgxODpkdGRz",
+        "name": "baseline-run2",
+        "dataset_id": "RGF0YXNldDozNDA5MzA6a2RWdQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDU4OmtRRm8=",
+        "created_at": "2026-04-16T03:43:28.028958Z",
+        "updated_at": "2026-04-16T03:43:28.028958Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzQ5MTcwNDptMGhi"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_ec2d76",
+          "example_id": "ae064e4f-c1af-4e89-94f1-6f7e0fb4b1f8",
+          "output": "{\"output\": \"Done! A review comment has been posted on PR #1264 in `seldo/acme-sdk-python` with the message: *\\\"LGTM \\u2014 just verify the 3.12 tests pass on the ARM runner too.\\\"*\", \"tool_calls\": 1, \"tool_names\": [\"Bash\"], \"latency_seconds\": 9.41, \"input_tokens\": 4, \"output_tokens\": 232, \"total_cost_usd\": 0.023577}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 1/1 passed.\n  [pass] PR #1264 has a review or comment containing the specified text",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "4dc90384ac57e596e103f961795d7a7d",
+            "eval.correctness.trace.timestamp": 1776311018588,
+            "eval.efficiency.explanation": "1 tool calls (expected ~3)",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "691a148409c8f1eafd1d36e532542ad4",
+            "eval.efficiency.trace.timestamp": 1776311019781,
+            "eval.latency.explanation": "9.41s | 4 in + 232 out tokens | $0.0236",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "6940e8e62de1594eaf11897cb69fab70",
+            "eval.latency.trace.timestamp": 1776311019862,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "d2d0fb5b4952bb436228754ac0b5ab2e",
+            "eval.output_quality.trace.timestamp": 1776311019707,
+            "eval.tool_fidelity.explanation": "1/1 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "fedf05b83b7492b36ef65e2aefcc4711",
+            "eval.tool_fidelity.trace.timestamp": 1776311019939,
+            "trace_id": "63d4212860a29db57f77abd0a897b171",
+            "trace_timestamp": 1776311008065
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgxNzprVEJG",
+        "name": "baseline-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MzA6a2RWdQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDU4OmtRRm8=",
+        "created_at": "2026-04-16T03:43:04.128505Z",
+        "updated_at": "2026-04-16T03:43:04.128505Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzQ5MTcwNDptMGhi"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_1d23f8",
+          "example_id": "ae064e4f-c1af-4e89-94f1-6f7e0fb4b1f8",
+          "output": "{\"output\": \"Done! A review comment has been added to PR #1264 in `seldo/acme-sdk-python` with the message: *\\\"LGTM \\u2014 just verify the 3.12 tests pass on the ARM runner too.\\\"*\", \"tool_calls\": 1, \"tool_names\": [\"Bash\"], \"latency_seconds\": 11.2, \"input_tokens\": 4, \"output_tokens\": 206, \"total_cost_usd\": 0.025915}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 1/1 passed.\n  [pass] PR #1264 has a review or comment containing the specified text",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "b7de117b36246e358bea4d3d10f48cac",
+            "eval.correctness.trace.timestamp": 1776310996714,
+            "eval.efficiency.explanation": "1 tool calls (expected ~3)",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "3efb13c8dc240eadc07c9d43d773bcba",
+            "eval.efficiency.trace.timestamp": 1776310997741,
+            "eval.latency.explanation": "11.2s | 4 in + 206 out tokens | $0.0259",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "3cfdc86f3d671ab3e4b7b9124e2a2245",
+            "eval.latency.trace.timestamp": 1776310997818,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "69f0ae8927b378a7e5c1ddba010eac9b",
+            "eval.output_quality.trace.timestamp": 1776310997664,
+            "eval.tool_fidelity.explanation": "1/1 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "a09e9834268fdcd3cc537fc1c41c24ad",
+            "eval.tool_fidelity.trace.timestamp": 1776310997902,
+            "trace_id": "979710e73bf21e0a54daa390bbc6c23e",
+            "trace_timestamp": 1776310984293
+          }
+        }
+      ]
+    }
+  ]
+}

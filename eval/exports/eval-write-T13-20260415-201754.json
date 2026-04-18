@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA5MjU6ajJ0eg==",
+    "name": "eval-write-T13-20260415-201754",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-16T03:17:55.033974Z",
+    "updated_at": "2026-04-16T03:17:55.033974Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "b11dd0da-f902-4df4-ac91-6d35a41e312f",
+      "created_at": "2026-04-16T03:17:55.033000Z",
+      "updated_at": "2026-04-16T03:17:55.033000Z",
+      "additional_properties": {
+        "attributes.input.value": "The word 'recieve' appears in README.md. Create a branch called `fix/readme-typo`, fix the typo, commit with an appropriate message, push, and open a PR that references issue #1257.",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Branch fix/readme-typo exists on remote\", \"README.md on that branch has 'receive' (not 'recieve')\", \"A PR exists from fix/readme-typo to main\", \"PR body or title references issue #1257\", \"Commit message is descriptive (e.g., 'fix: correct typo in README.md')\"], \"note\": \"Issue #1257 is the typo issue. Agent should reference it.\"}",
+        "category": "write",
+        "task_id": "T13",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgwMzpTUjVo",
+        "name": "baseline-run3",
+        "dataset_id": "RGF0YXNldDozNDA5MjU6ajJ0eg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDUzOkoxODM=",
+        "created_at": "2026-04-16T03:27:51.788879Z",
+        "updated_at": "2026-04-16T03:27:51.788879Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzI1Nzg4Nzoxd2pE"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_e5fd11",
+          "example_id": "b11dd0da-f902-4df4-ac91-6d35a41e312f",
+          "output": "{\"output\": \"I'll start by fetching the README.md content and repo details in parallel.Found the typo on the last line. Now I'll get the file SHA and main branch SHA to create the new branch and update the file.Now I'll create the branch from main's HEAD SHA.Branch already exists. I'll update the file on that existing branch with the typo fixed.Got the SHA. Now I'll create the fixed README content and push it to the branch.Now I'll commit the fix to the branch.Committed successfully. Now I'll open the PR referencing issue #1257.The branch `fix/readme-typo` has been created and the commit has been pushed (commit `0edb855`). However, creating the PR via the API requires explicit user approval in this environment. Here's a summary of everything completed:\\n\\n| Step | Status | Details |\\n|------|--------|---------|\\n| Branch created | \\u2705 | `fix/readme-typo` (already existed, used as-is) |\\n| Typo fixed | \\u2705 | `recieve` \\u2192 `receive` in the Support section of `README.md` |\\n| Committed | \\u2705 | Commit `0edb855` \\u2014 *\\\"fix: correct typo 'recieve' -> 'receive' in README.md\\\"* |\\n| PR opened | \\u26a0\\ufe0f | Requires approval |\\n\\nTo open the PR, please approve the following command:\\n\\n```\\ngh api repos/seldo/acme-sdk-python/pulls \\\\\\n  --method POST \\\\\\n  --field title=\\\"fix: correct typo 'recieve' -> 'receive' in README.md\\\" \\\\\\n  --field body=\\\"Fixes #1257\\n\\nCorrects the spelling of 'recieve' to 'receive' in the Support section of README.md.\\\" \\\\\\n  --field head=\\\"fix/readme-typo\\\" \\\\\\n  --field base=\\\"main\\\"\\n```\", \"tool_calls\": 20, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Agent\", \"Bash\"], \"latency_seconds\": 215.18, \"input_tokens\": 20, \"output_tokens\": 10025, \"total_cost_usd\": 0.599551}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/5 passed.\n  [pass] Branch fix/readme-typo exists on remote\n  [pass] README.md on that branch has 'receive' (not 'recieve')\n  [fail] A PR exists from fix/readme-typo to main\n  [fail] PR body or title references issue #1257\n  [pass] Commit message is descriptive (e.g., 'fix: correct typo in README.md')",
+            "eval.correctness.label": "partial",
+            "eval.correctness.score": 0.6,
+            "eval.correctness.trace.id": "0c262fa14e2f855cafaeea480ac3aee1",
+            "eval.correctness.trace.timestamp": 1776310288113,
+            "eval.efficiency.explanation": "20 tool calls (expected ~10), 17 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.3,
+            "eval.efficiency.trace.id": "a5f4f9cc2818e3283b4ede09032fea5d",
+            "eval.efficiency.trace.timestamp": 1776310290525,
+            "eval.latency.explanation": "215.18s | 20 in + 10025 out tokens | $0.5996",
+            "eval.latency.label": "slow",
+            "eval.latency.score": 0.4,
+            "eval.latency.trace.id": "bc5f939d9ecb4ac1c0a71e2ffb5566a8",
+            "eval.latency.trace.timestamp": 1776310290598,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "457e8fe7cddb21ad730a464487fd4576",
+            "eval.output_quality.trace.timestamp": 1776310290438,
+            "eval.tool_fidelity.explanation": "19/20 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 0.95,
+            "eval.tool_fidelity.trace.id": "4e6a9b9bed0ffb6947f8517c5d0792be",
+            "eval.tool_fidelity.trace.timestamp": 1776310290676,
+            "trace_id": "5582ae70791d71ca2b97f38ffb6137d2",
+            "trace_timestamp": 1776310071819
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzgwMTpkbmN5",
+        "name": "baseline-run2",
+        "dataset_id": "RGF0YXNldDozNDA5MjU6ajJ0eg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDUzOkoxODM=",
+        "created_at": "2026-04-16T03:21:15.056547Z",
+        "updated_at": "2026-04-16T03:21:15.056547Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzI1Nzg4Nzoxd2pE"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_00c246",
+          "example_id": "b11dd0da-f902-4df4-ac91-6d35a41e312f",
+          "output": "{\"output\": \"I'll start by fetching the README content and issue details in parallel.I have everything I need. Now I'll create the branch, fix the typo, commit, push, and open the PR.Branch already exists \\u2014 I'll commit the fix directly to it.Now I'll commit the fixed content to the branch:All done! Here's a summary of what was completed:\\n\\n1. **Branch**: `fix/readme-typo` already existed and was used directly.\\n2. **Typo fixed**: `recieve` \\u2192 `receive` in the Support section of `README.md` (last line).\\n3. **Commit**: `2e3db3c` \\u2014 *\\\"Fix typo: 'recieve' -> 'receive' in README.md\\\"* with `Closes #1257` in the body.\\n4. **PR opened**: [#1270 \\u2014 Fix typo: 'recieve' \\u2192 'receive' in README.md](https://github.com/seldo/acme-sdk-python/pull/1270), referencing issue #1257.\", \"tool_calls\": 14, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Agent\", \"Bash\", \"Bash\"], \"latency_seconds\": 379.59, \"input_tokens\": 13, \"output_tokens\": 13740, \"total_cost_usd\": 0.89275}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 4/5 passed.\n  [pass] Branch fix/readme-typo exists on remote\n  [pass] README.md on that branch has 'receive' (not 'recieve')\n  [pass] A PR exists from fix/readme-typo to main\n  [fail] PR body or title references issue #1257\n  [pass] Commit message is descriptive (e.g., 'fix: correct typo in README.md')",
+            "eval.correctness.label": "partial",
+            "eval.correctness.score": 0.8,
+            "eval.correctness.trace.id": "bb6c238e76837e0706063f326f79b854",
+            "eval.correctness.trace.timestamp": 1776310055889,
+            "eval.efficiency.explanation": "14 tool calls (expected ~10), 11 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.6,
+            "eval.efficiency.trace.id": "63f9faee479b24c73b904961da8f914a",
+            "eval.efficiency.trace.timestamp": 1776310058294,
+            "eval.latency.explanation": "379.59s | 13 in + 13740 out tokens | $0.8928",
+            "eval.latency.label": "very_slow",
+            "eval.latency.score": 0.1,
+            "eval.latency.trace.id": "b8fad78e4455dd021b07e2887b7a6595",
+            "eval.latency.trace.timestamp": 1776310058396,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "8efaeb5d2117a0eee2a880cd7219311a",
+            "eval.output_quality.trace.timestamp": 1776310058222,
+            "eval.tool_fidelity.explanation": "13/14 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 0.9285714285714286,
+            "eval.tool_fidelity.trace.id": "3f6d176959afe7c3f7f3ad421711fad6",
+            "eval.tool_fidelity.trace.timestamp": 1776310058470,
+            "trace_id": "98ad377ff15298576be06f34dd19628c",
+            "trace_timestamp": 1776309675086
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3Nzc5OTpUeGwz",
+        "name": "baseline-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MjU6ajJ0eg==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDUzOkoxODM=",
+        "created_at": "2026-04-16T03:18:05.668106Z",
+        "updated_at": "2026-04-16T03:18:05.668106Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NzI1Nzg4Nzoxd2pE"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_e6cf33",
+          "example_id": "b11dd0da-f902-4df4-ac91-6d35a41e312f",
+          "output": "{\"output\": \"I'll start by fetching the README to find the typo, then handle the branch, fix, commit, push, and PR in sequence.Found the typo on the last line: `recieve` \\u2192 `receive`. Now I'll get the file SHA and main branch SHA to create the branch and commit via the API.Now I'll create the branch, then commit the fix.Branch already exists \\u2014 I'll commit the fix directly to it.Now I'll commit the fix to the branch, then open the PR.Commit pushed. Now opening the PR referencing issue #1257.All done! Here's a summary of everything that was completed:\\n\\n1. **Found the typo** \\u2014 `recieve` on the last line of README.md (\\\"When you recieve an error\\u2026\\\")\\n2. **Branch** \\u2014 `fix/readme-typo` already existed in the repo and was used\\n3. **Committed** \\u2014 `fix: correct typo 'recieve' -> 'receive' in README` (commit `2db7b80`)\\n4. **PR opened** \\u2014 [#1269](https://github.com/seldo/acme-sdk-python/pull/1269), with body `Fixes #1257` to close the referenced issue\", \"tool_calls\": 16, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Agent\", \"Bash\"], \"latency_seconds\": 171.0, \"input_tokens\": 16, \"output_tokens\": 8593, \"total_cost_usd\": 0.580382}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 4/5 passed.\n  [pass] Branch fix/readme-typo exists on remote\n  [pass] README.md on that branch has 'receive' (not 'recieve')\n  [pass] A PR exists from fix/readme-typo to main\n  [fail] PR body or title references issue #1257\n  [pass] Commit message is descriptive (e.g., 'fix: correct typo in README.md')",
+            "eval.correctness.label": "partial",
+            "eval.correctness.score": 0.8,
+            "eval.correctness.trace.id": "c26fa7997916971a56b4089062e45f37",
+            "eval.correctness.trace.timestamp": 1776309658006,
+            "eval.efficiency.explanation": "16 tool calls (expected ~10), 13 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.4,
+            "eval.efficiency.trace.id": "eb77bd79b3143d50c0cd0037391a12b1",
+            "eval.efficiency.trace.timestamp": 1776309660387,
+            "eval.latency.explanation": "171.0s | 16 in + 8593 out tokens | $0.5804",
+            "eval.latency.label": "slow",
+            "eval.latency.score": 0.4,
+            "eval.latency.trace.id": "fe26ae7067b58c978b9aaf4e6b602096",
+            "eval.latency.trace.timestamp": 1776309660463,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "ab058daa51dfa90d5ef2eea843f06476",
+            "eval.output_quality.trace.timestamp": 1776309660311,
+            "eval.tool_fidelity.explanation": "15/16 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 0.9375,
+            "eval.tool_fidelity.trace.id": "cc5bdfffdf6fcdda9ce92cd277190262",
+            "eval.tool_fidelity.trace.timestamp": 1776309660539,
+            "trace_id": "731b2c2314ee3d4b17f3c70c7a4f71b8",
+            "trace_timestamp": 1776309485876
+          }
+        }
+      ]
+    }
+  ]
+}

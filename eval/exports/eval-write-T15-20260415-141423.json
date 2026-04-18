@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA4Njc6YmY0UQ==",
+    "name": "eval-write-T15-20260415-141423",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-15T21:14:23.756431Z",
+    "updated_at": "2026-04-15T21:14:23.756431Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "f215e9ab-0ae6-4d0d-a4c5-24b270b86e7a",
+      "created_at": "2026-04-15T21:14:23.755000Z",
+      "updated_at": "2026-04-15T21:14:23.755000Z",
+      "additional_properties": {
+        "attributes.input.value": "Close issue #1200 (the README typo) with a comment saying 'Fixed in PR #X' (use the actual PR number if one exists, otherwise note that no PR was found).",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Issue #1200 is closed\", \"Issue #1200 has a comment referencing a PR number or stating no PR exists\"]}",
+        "category": "write",
+        "task_id": "T15",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzYzMjpqdlNr",
+        "name": "vault-run1",
+        "dataset_id": "RGF0YXNldDozNDA4Njc6YmY0UQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzcyOnBnMzY=",
+        "created_at": "2026-04-15T21:15:35.632512Z",
+        "updated_at": "2026-04-15T21:15:35.632512Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MzQzMDU5MjpUUy9q"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_87a6c0",
+          "example_id": "f215e9ab-0ae6-4d0d-a4c5-24b270b86e7a",
+          "output": "{\"output\": \"I'll start by looking up issue #1200 and searching for any related PRs simultaneously.Issue #1200 does not exist in the **seldo/acme-sdk-python** repository \\u2014 GitHub returned:\\n\\n> `Could not resolve to an issue or pull request with the number of 1200.`\\n\\nThere is nothing to close or comment on. Here's what you can do:\\n\\n- **Verify the issue number** \\u2014 it may be in a different repo, or the number might be off (e.g., #120, #12, etc.).\\n- **Verify the repository** \\u2014 confirm it's `seldo/acme-sdk-python` and not a fork or related repo.\\n\\nLet me know the correct issue number or repo and I'll take care of it right away!\", \"tool_calls\": 2, \"tool_names\": [\"Bash\", \"Bash\"], \"latency_seconds\": 9.19, \"input_tokens\": 4, \"output_tokens\": 400, \"total_cost_usd\": 0.034763}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/2 passed.\n  [fail] Issue #1200 is closed\n  [fail] Issue #1200 has a comment referencing a PR number or stating no PR exists",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "faf5031b99b35e9680dd27794484ddcc",
+            "eval.correctness.trace.timestamp": 1776287746250,
+            "eval.efficiency.explanation": "2 tool calls (expected ~5), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "7697ae2bed77917950a22e1fca3010dd",
+            "eval.efficiency.trace.timestamp": 1776287748042,
+            "eval.latency.explanation": "9.19s | 4 in + 400 out tokens | $0.0348",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "f7d93a76a475e7e257e5aab5827b8cd5",
+            "eval.latency.trace.timestamp": 1776287748267,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "cd91417d0a296d28e25486159050567f",
+            "eval.output_quality.trace.timestamp": 1776287747597,
+            "eval.tool_fidelity.explanation": "2/2 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "0082285ac0409eb523ccc7b65c1fd3b8",
+            "eval.tool_fidelity.trace.timestamp": 1776287748562,
+            "trace_id": "00d814d229df9ff87bf729523e84f723",
+            "trace_timestamp": 1776287735669
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzYzMTpMdXVB",
+        "name": "lobehub-run1",
+        "dataset_id": "RGF0YXNldDozNDA4Njc6YmY0UQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzcyOnBnMzY=",
+        "created_at": "2026-04-15T21:15:11.368236Z",
+        "updated_at": "2026-04-15T21:15:11.368236Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MzQzMDU5MjpUUy9q"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_05167f",
+          "example_id": "f215e9ab-0ae6-4d0d-a4c5-24b270b86e7a",
+          "output": "{\"output\": \"Let me first look up issue #1200 and search for any related PRs simultaneously.Issue #1200 does not exist in the **seldo/acme-sdk-python** repository \\u2014 the GitHub API returned \\\"Could not resolve to an issue or pull request with the number of 1200.\\\"\\n\\nNo action was taken. Please double-check the issue number and let me know if you'd like to try a different one.\", \"tool_calls\": 2, \"tool_names\": [\"Bash\", \"Bash\"], \"latency_seconds\": 7.62, \"input_tokens\": 4, \"output_tokens\": 361, \"total_cost_usd\": 0.0427}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/2 passed.\n  [fail] Issue #1200 is closed\n  [fail] Issue #1200 has a comment referencing a PR number or stating no PR exists",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "8733e02426b464d51c7e30b400da85d7",
+            "eval.correctness.trace.timestamp": 1776287720519,
+            "eval.efficiency.explanation": "2 tool calls (expected ~5), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "dc5f4187d5d163fc239046574b002c15",
+            "eval.efficiency.trace.timestamp": 1776287724823,
+            "eval.latency.explanation": "7.62s | 4 in + 361 out tokens | $0.0427",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "4bb76b2824658db8e325cc6fd3e955ed",
+            "eval.latency.trace.timestamp": 1776287725146,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "778d901b578d5358ca9bf82959902f39",
+            "eval.output_quality.trace.timestamp": 1776287724540,
+            "eval.tool_fidelity.explanation": "2/2 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "3947d7397c8a9fc15f851e9d941c478b",
+            "eval.tool_fidelity.trace.timestamp": 1776287725455,
+            "trace_id": "00a0a0d86b309dab82216c19477e7be9",
+            "trace_timestamp": 1776287711408
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzYyOTpPb1E5",
+        "name": "mcp-run1",
+        "dataset_id": "RGF0YXNldDozNDA4Njc6YmY0UQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzcyOnBnMzY=",
+        "created_at": "2026-04-15T21:14:33.042773Z",
+        "updated_at": "2026-04-15T21:14:33.042773Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MzQzMDU5MjpUUy9q"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_bb117a",
+          "example_id": "f215e9ab-0ae6-4d0d-a4c5-24b270b86e7a",
+          "output": "{\"output\": \"I'll look up issue #1200 and search for related PRs at the same time.Issue #1200 appears to have been deleted. Let me search for any related PRs.PR #1213 explicitly references \\\"Fixes #1200\\\" in its body. Now I'll add the comment and close the issue simultaneously.Issue #1200 has been **deleted** from the repository and no longer exists \\u2014 GitHub confirmed this with a \\\"This issue was deleted\\\" error. As a result, it cannot be commented on or closed.\\n\\nThat said, I did find the relevant PR: **PR #1213** (\\\"fix: correct typo 'recieve' -> 'receive' in README.md\\\") explicitly references `Fixes #1200` in its body, confirming it was the fix for that issue. The PR is already closed.\\n\\nSince the issue is deleted (not just closed), there's nothing further that can be done with it.\", \"tool_calls\": 5, \"tool_names\": [\"mcp__github__get_issue\", \"mcp__github__list_pull_requests\", \"mcp__github__list_pull_requests\", \"mcp__github__search_issues\", \"mcp__github__add_issue_comment\"], \"latency_seconds\": 24.36, \"input_tokens\": 7, \"output_tokens\": 1115, \"total_cost_usd\": 0.254901}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/2 passed.\n  [fail] Issue #1200 is closed\n  [fail] Issue #1200 has a comment referencing a PR number or stating no PR exists",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "46089997aa5239eaf2fd2b0d6e6c68a5",
+            "eval.correctness.trace.timestamp": 1776287698907,
+            "eval.efficiency.explanation": "5 tool calls (expected ~5), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "8025f889ceb214b158c36864ee31aceb",
+            "eval.efficiency.trace.timestamp": 1776287700297,
+            "eval.latency.explanation": "24.36s | 7 in + 1115 out tokens | $0.2549",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "f3983875c341e0936b5660c40755130e",
+            "eval.latency.trace.timestamp": 1776287700481,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "6f0281a2288c231a0081cf121d98d9a9",
+            "eval.output_quality.trace.timestamp": 1776287699993,
+            "eval.tool_fidelity.explanation": "5/5 calls were MCP tools",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "afed567365afe5b831888a935175873e",
+            "eval.tool_fidelity.trace.timestamp": 1776287700759,
+            "trace_id": "bebfe00db59843cbaf83c50c2b41b53f",
+            "trace_timestamp": 1776287673245
+          }
+        }
+      ]
+    }
+  ]
+}

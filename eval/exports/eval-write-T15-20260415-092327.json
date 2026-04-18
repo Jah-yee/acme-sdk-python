@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA4Mjc6QnkvaA==",
+    "name": "eval-write-T15-20260415-092327",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-15T16:23:27.681960Z",
+    "updated_at": "2026-04-15T16:23:27.681960Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "eed05384-82ad-48fb-8bac-0afe08b81edf",
+      "created_at": "2026-04-15T16:23:27.681000Z",
+      "updated_at": "2026-04-15T16:23:27.681000Z",
+      "additional_properties": {
+        "attributes.input.value": "Close issue #763 (the README typo) with a comment saying 'Fixed in PR #X' (use the actual PR number if one exists, otherwise note that no PR was found).",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Issue #763 is closed\", \"Issue #763 has a comment referencing a PR number or stating no PR exists\"]}",
+        "category": "write",
+        "task_id": "T15",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzQ4NTo2Rll0",
+        "name": "vault-run1",
+        "dataset_id": "RGF0YXNldDozNDA4Mjc6QnkvaA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzA0OmFnbEY=",
+        "created_at": "2026-04-15T16:37:37.536249Z",
+        "updated_at": "2026-04-15T16:37:37.536249Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MDAxNzgzNzpaUi9y"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_0db216",
+          "example_id": "eed05384-82ad-48fb-8bac-0afe08b81edf",
+          "output": "{\"output\": \"I'll look up issue #763 and search for any related PRs simultaneously.Issue #763 does not exist in the **seldo/acme-sdk-python** repository. The GitHub API returned:\\n\\n> `Could not resolve to an issue or pull request with the number of 763.`\\n\\nThis could mean:\\n- The issue number is incorrect\\n- The issue was already deleted (GitHub doesn't allow issue deletion for most accounts \\u2014 only closing)\\n- It exists in a different repository\\n\\nCould you double-check the issue number or repository? If you meant a different issue or repo, let me know and I'll proceed right away.\", \"tool_calls\": 2, \"tool_names\": [\"Bash\", \"Bash\"], \"latency_seconds\": 8.61, \"input_tokens\": 4, \"output_tokens\": 342, \"total_cost_usd\": 0.141958}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/2 passed.\n  [fail] Issue #763 is closed\n  [fail] Issue #763 has a comment referencing a PR number or stating no PR exists",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "c3fbbf00da6fbe06dd4b72a5628c2f0e",
+            "eval.correctness.trace.timestamp": 1776271067542,
+            "eval.efficiency.explanation": "2 tool calls (expected ~5), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "d5f2ff1a247b5c0802080fea88127005",
+            "eval.efficiency.trace.timestamp": 1776271069124,
+            "eval.latency.explanation": "8.61s | 4 in + 342 out tokens | $0.1420",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "e03dbb4bbb17d564f309675d9abac295",
+            "eval.latency.trace.timestamp": 1776271069516,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "9a95ef97eca64c2adb17009b75336a7d",
+            "eval.output_quality.trace.timestamp": 1776271068768,
+            "eval.tool_fidelity.explanation": "2/2 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "568b35c9ffc6211eb1153ad08218495c",
+            "eval.tool_fidelity.trace.timestamp": 1776271069710,
+            "trace_id": "718cf3fcaf1f89f6271548b081b5ab80",
+            "trace_timestamp": 1776271057578
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzQ4NDoxTVpx",
+        "name": "lobehub-run1",
+        "dataset_id": "RGF0YXNldDozNDA4Mjc6QnkvaA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzA0OmFnbEY=",
+        "created_at": "2026-04-15T16:31:39.786869Z",
+        "updated_at": "2026-04-15T16:31:39.786869Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MDAxNzgzNzpaUi9y"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_208dfb",
+          "example_id": "eed05384-82ad-48fb-8bac-0afe08b81edf",
+          "output": "{\"output\": \"I'll look up issue #763 and search for any related PRs simultaneously.Issue #763 does not exist in the **seldo/acme-sdk-python** repository \\u2014 GitHub returned: *\\\"Could not resolve to an issue or pull request with the number of 763.\\\"*\\n\\nThere's nothing to close. Could you double-check the issue number? You can run `gh issue list --repo seldo/acme-sdk-python` to see the open issues, or let me know the correct number and I'll take care of it right away.\", \"tool_calls\": 2, \"tool_names\": [\"Bash\", \"Bash\"], \"latency_seconds\": 8.59, \"input_tokens\": 4, \"output_tokens\": 339, \"total_cost_usd\": 0.199799}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/2 passed.\n  [fail] Issue #763 is closed\n  [fail] Issue #763 has a comment referencing a PR number or stating no PR exists",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "9c5f6d5ea97c2805a50f44a1cd469e28",
+            "eval.correctness.trace.timestamp": 1776270710000,
+            "eval.efficiency.explanation": "2 tool calls (expected ~5), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "de4f984a38f0a567bbfe545c80d48eda",
+            "eval.efficiency.trace.timestamp": 1776270711758,
+            "eval.latency.explanation": "8.59s | 4 in + 339 out tokens | $0.1998",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "4899d0039ea0d51de9aab204446b76a7",
+            "eval.latency.trace.timestamp": 1776270712017,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "14027bcd1dfbd607da0291a3786ab151",
+            "eval.output_quality.trace.timestamp": 1776270711327,
+            "eval.tool_fidelity.explanation": "2/2 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "3d9b95564211f7a9fe491a57b3052512",
+            "eval.tool_fidelity.trace.timestamp": 1776270712408,
+            "trace_id": "24a54cccb72c0ff25fe963ac6f690827",
+            "trace_timestamp": 1776270699825
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzQ4MzpuODU0",
+        "name": "mcp-run1",
+        "dataset_id": "RGF0YXNldDozNDA4Mjc6QnkvaA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzA0OmFnbEY=",
+        "created_at": "2026-04-15T16:27:22.228824Z",
+        "updated_at": "2026-04-15T16:27:22.228824Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MDAxNzgzNzpaUi9y"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_088587",
+          "example_id": "eed05384-82ad-48fb-8bac-0afe08b81edf",
+          "output": "{\"output\": \"I'll look up issue #763 and search for any related PRs simultaneously.Let me search for related PRs directly.PR #871 explicitly references \\\"Closes #763\\\" in its body. Now I'll add the comment and close the issue simultaneously.Issue #763 has been **deleted** from the repository (not just closed \\u2014 it no longer exists), so it cannot be commented on or closed via the API.\\n\\nHere's what I found:\\n- **Issue #763** \\u2014 the README typo issue \\u2014 has been deleted and is inaccessible.\\n- **PR #871** (\\\"docs: fix typo 'recieve' -> 'receive' in README\\\") explicitly references `Closes #763` in its body, confirming it was the associated fix. That PR is already closed.\\n\\nSince the issue is deleted (not just closed), no further action can be taken on it. If you need to track this, the fix is captured in PR #871.\", \"tool_calls\": 5, \"tool_names\": [\"mcp__github__get_issue\", \"mcp__github__list_pull_requests\", \"mcp__github__search_issues\", \"mcp__github__add_issue_comment\", \"mcp__github__update_issue\"], \"latency_seconds\": 17.88, \"input_tokens\": 6, \"output_tokens\": 846, \"total_cost_usd\": 0.226083}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/2 passed.\n  [fail] Issue #763 is closed\n  [fail] Issue #763 has a comment referencing a PR number or stating no PR exists",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "d6b1dad1b0ea9c99a777ec17cdf70227",
+            "eval.correctness.trace.timestamp": 1776270462121,
+            "eval.efficiency.explanation": "5 tool calls (expected ~5)",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "55c431a99c03b9ab8c84232cd681c9ef",
+            "eval.efficiency.trace.timestamp": 1776270463539,
+            "eval.latency.explanation": "17.88s | 6 in + 846 out tokens | $0.2261",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "b9d29cc0b35e6c57cd1b325f92db78bc",
+            "eval.latency.trace.timestamp": 1776270463967,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "ee6b6141b1f7f7d73627a54afce6737d",
+            "eval.output_quality.trace.timestamp": 1776270463231,
+            "eval.tool_fidelity.explanation": "5/5 calls were MCP tools",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "059e851d386977815cc488520c3f69ae",
+            "eval.tool_fidelity.trace.timestamp": 1776270464498,
+            "trace_id": "7d453c0a40dec2ea3953dd83bb6a7004",
+            "trace_timestamp": 1776270442598
+          }
+        }
+      ]
+    }
+  ]
+}

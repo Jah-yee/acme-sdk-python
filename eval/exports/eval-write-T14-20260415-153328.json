@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA5MDA6ZkpScA==",
+    "name": "eval-write-T14-20260415-153328",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-15T22:33:28.871114Z",
+    "updated_at": "2026-04-15T22:33:28.871114Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "b8064c2f-7455-41cf-bebb-db0306a02cf7",
+      "created_at": "2026-04-15T22:33:28.870000Z",
+      "updated_at": "2026-04-15T22:33:28.870000Z",
+      "additional_properties": {
+        "attributes.input.value": "Add the label `needs-triage` to issues #1231 and #1234.",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Label 'needs-triage' exists (created if necessary)\", \"Issue #1231 has the 'needs-triage' label\", \"Issue #1234 has the 'needs-triage' label\"], \"note\": \"Issue #1231 is the config crash bug, #1234 is the unicode bug.\"}",
+        "category": "write",
+        "task_id": "T14",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzY5NToxcGNZ",
+        "name": "vault-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MDA6ZkpScA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDEyOmloWGE=",
+        "created_at": "2026-04-15T22:34:44.020027Z",
+        "updated_at": "2026-04-15T22:34:44.020027Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NDM1MTcwNDpaTmM0"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_e29769",
+          "example_id": "b8064c2f-7455-41cf-bebb-db0306a02cf7",
+          "output": "{\"output\": \"I'll add the `needs-triage` label to both issues simultaneously now.The label `needs-triage` doesn't exist yet in the repo. I'll create it first, then apply it to both issues.Done! Here's a summary of what happened:\\n\\n1. **Label created** \\u2014 `needs-triage` didn't exist in `seldo/acme-sdk-python`, so it was created first.\\n2. **Label applied** to both issues:\\n   - [#1231](https://github.com/seldo/acme-sdk-python/issues/1231) \\u2705\\n   - [#1234](https://github.com/seldo/acme-sdk-python/issues/1234) \\u2705\", \"tool_calls\": 5, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 20.06, \"input_tokens\": 6, \"output_tokens\": 802, \"total_cost_usd\": 0.06871}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/3 passed.\n  [pass] Label 'needs-triage' exists (created if necessary)\n  [pass] Issue #1231 has the 'needs-triage' label\n  [pass] Issue #1234 has the 'needs-triage' label",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "c404f412609aea9ca1e68c6780b2ff9a",
+            "eval.correctness.trace.timestamp": 1776292505220,
+            "eval.efficiency.explanation": "5 tool calls (expected ~4), 4 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.75,
+            "eval.efficiency.trace.id": "1c4ad200c548ccab735e7a5b1d175a9f",
+            "eval.efficiency.trace.timestamp": 1776292506682,
+            "eval.latency.explanation": "20.06s | 6 in + 802 out tokens | $0.0687",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "f8e697199aa341acce7b86f2717b2e20",
+            "eval.latency.trace.timestamp": 1776292506756,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "5dd11cdbe372351dbc814dce504a7c3f",
+            "eval.output_quality.trace.timestamp": 1776292506610,
+            "eval.tool_fidelity.explanation": "5/5 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "e4de5504c410c65151c17435073b83f8",
+            "eval.tool_fidelity.trace.timestamp": 1776292506833,
+            "trace_id": "29578631b681112bff896a464c2f1252",
+            "trace_timestamp": 1776292484044
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzY5MzpVeWtm",
+        "name": "lobehub-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MDA6ZkpScA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDEyOmloWGE=",
+        "created_at": "2026-04-15T22:34:08.585303Z",
+        "updated_at": "2026-04-15T22:34:08.585303Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NDM1MTcwNDpaTmM0"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_0514a8",
+          "example_id": "b8064c2f-7455-41cf-bebb-db0306a02cf7",
+          "output": "{\"output\": \"The label `needs-triage` doesn't exist in the repository yet. I'll create it first, then apply it to both issues.Done! The label `needs-triage` didn't exist in the repo, so I created it first, then successfully applied it to both issues:\\n- **#1231**: https://github.com/seldo/acme-sdk-python/issues/1231\\n- **#1234**: https://github.com/seldo/acme-sdk-python/issues/1234\", \"tool_calls\": 5, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 18.4, \"input_tokens\": 6, \"output_tokens\": 681, \"total_cost_usd\": 0.08222}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/3 passed.\n  [pass] Label 'needs-triage' exists (created if necessary)\n  [pass] Issue #1231 has the 'needs-triage' label\n  [pass] Issue #1234 has the 'needs-triage' label",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "1a9939aa4017ab21dec7272d8a321384",
+            "eval.correctness.trace.timestamp": 1776292468149,
+            "eval.efficiency.explanation": "5 tool calls (expected ~4), 4 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.75,
+            "eval.efficiency.trace.id": "e266cecac49cf47a5e871943f01ed32c",
+            "eval.efficiency.trace.timestamp": 1776292469607,
+            "eval.latency.explanation": "18.4s | 6 in + 681 out tokens | $0.0822",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "0fb0564b74aea4018eed793a10ee7613",
+            "eval.latency.trace.timestamp": 1776292469682,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "d9923b17ce9d32796acddb361383c23a",
+            "eval.output_quality.trace.timestamp": 1776292469534,
+            "eval.tool_fidelity.explanation": "5/5 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "36e397f2e892b53ce02308b5684ecfeb",
+            "eval.tool_fidelity.trace.timestamp": 1776292469755,
+            "trace_id": "cd7d8932d4f15b1d63ca49a48c7ed645",
+            "trace_timestamp": 1776292448605
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzY5MjpHbjhL",
+        "name": "mcp-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MDA6ZkpScA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDEyOmloWGE=",
+        "created_at": "2026-04-15T22:33:38.131095Z",
+        "updated_at": "2026-04-15T22:33:38.131095Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NDM1MTcwNDpaTmM0"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_bd2452",
+          "example_id": "b8064c2f-7455-41cf-bebb-db0306a02cf7",
+          "output": "{\"output\": \"I'll update both issues simultaneously!Done! The `needs-triage` label has been successfully added to both issues:\\n\\n- **#1231** \\u2013 \\\"Config file parser crashes on empty values\\\" \\u2705\\n- **#1234** \\u2013 \\\"JSON file exporter doesn't handle unicode properly\\\" \\u2705\", \"tool_calls\": 2, \"tool_names\": [\"mcp__github__update_issue\", \"mcp__github__update_issue\"], \"latency_seconds\": 10.11, \"input_tokens\": 4, \"output_tokens\": 359, \"total_cost_usd\": 0.052506}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/3 passed.\n  [pass] Label 'needs-triage' exists (created if necessary)\n  [pass] Issue #1231 has the 'needs-triage' label\n  [pass] Issue #1234 has the 'needs-triage' label",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "9ad6ae9d97eb026e04dcc8cc06ed919a",
+            "eval.correctness.trace.timestamp": 1776292429911,
+            "eval.efficiency.explanation": "2 tool calls (expected ~4), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "b3afa1a29a24c8e1928080f4d0586556",
+            "eval.efficiency.trace.timestamp": 1776292431655,
+            "eval.latency.explanation": "10.11s | 4 in + 359 out tokens | $0.0525",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "a2fa2d053e53d39263534ce7a5ad1e66",
+            "eval.latency.trace.timestamp": 1776292431988,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "1fbd35a741556eaaac45b5507c21ceda",
+            "eval.output_quality.trace.timestamp": 1776292431367,
+            "eval.tool_fidelity.explanation": "2/2 calls were MCP tools",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "72dde2a5fa1706fe771ad8b1e5f425af",
+            "eval.tool_fidelity.trace.timestamp": 1776292432320,
+            "trace_id": "9fce30a2267960d1490be0318498dbd9",
+            "trace_timestamp": 1776292418328
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA4MjI6Vlo2ZA==",
+    "name": "eval-write-T13-20260415-085507",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-15T15:55:07.979026Z",
+    "updated_at": "2026-04-15T15:55:07.979026Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "7406da35-662b-4d91-85ed-539aed4033bf",
+      "created_at": "2026-04-15T15:55:07.978000Z",
+      "updated_at": "2026-04-15T15:55:07.978000Z",
+      "additional_properties": {
+        "attributes.input.value": "The word 'recieve' appears in README.md. Create a branch called `fix/readme-typo`, fix the typo, commit with an appropriate message, push, and open a PR that references issue #763.",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Branch fix/readme-typo exists on remote\", \"README.md on that branch has 'receive' (not 'recieve')\", \"A PR exists from fix/readme-typo to main\", \"PR body or title references issue #763\", \"Commit message is descriptive (e.g., 'fix: correct typo in README.md')\"], \"note\": \"Issue #763 is the typo issue. Agent should reference it.\"}",
+        "category": "write",
+        "task_id": "T13",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzQ3ODpzdDBZ",
+        "name": "vault-run1",
+        "dataset_id": "RGF0YXNldDozNDA4MjI6Vlo2ZA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0Mjk5OnFjbDc=",
+        "created_at": "2026-04-15T16:10:08.344824Z",
+        "updated_at": "2026-04-15T16:10:08.344824Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ2OTY3MjY0MDo3UmpV"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_3fc06a",
+          "example_id": "7406da35-662b-4d91-85ed-539aed4033bf",
+          "output": "{\"output\": \"Found it on line 187. Now fix the typo:It looks like I don't have write permission to the file. Could you grant permission to edit `README.md`? Once you do, I'll:\\n\\n1. Fix `recieve` \\u2192 `receive` on line 187\\n2. Commit with a message like `fix: correct spelling of \\\"receive\\\" in README`\\n3. Push the `fix/readme-typo` branch\\n4. Open a PR referencing issue #763\\n\\nAlternatively, if you'd like to grant the permission and have me proceed automatically, just approve the file write above and I'll continue from there.\", \"tool_calls\": 8, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Grep\", \"Edit\", \"Read\", \"Edit\", \"Edit\"], \"latency_seconds\": 24.69, \"input_tokens\": 11, \"output_tokens\": 1203, \"total_cost_usd\": 0.15415}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/5 passed.\n  [fail] Branch fix/readme-typo exists on remote\n  [fail] README.md on that branch has 'receive' (not 'recieve')\n  [fail] A PR exists from fix/readme-typo to main\n  [fail] PR body or title references issue #763\n  [fail] Commit message is descriptive (e.g., 'fix: correct typo in README.md')",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "30246a8d731bae08494e52e3fba9083e",
+            "eval.correctness.trace.timestamp": 1776269434637,
+            "eval.efficiency.explanation": "8 tool calls (expected ~10), 3 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "1034846eb3a27f5f6e3dacd49cff0fbe",
+            "eval.efficiency.trace.timestamp": 1776269440630,
+            "eval.latency.explanation": "24.69s | 11 in + 1203 out tokens | $0.1542",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "498e8ae38f2d4f2ab051416be6ca8434",
+            "eval.latency.trace.timestamp": 1776269440896,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "689af09beac8d7db2f53ba5ee53e55d0",
+            "eval.output_quality.trace.timestamp": 1776269440253,
+            "eval.tool_fidelity.explanation": "3/8 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "mixed",
+            "eval.tool_fidelity.score": 0.375,
+            "eval.tool_fidelity.trace.id": "c19f4d0038bc12a62cd51faa4c9df372",
+            "eval.tool_fidelity.trace.timestamp": 1776269441337,
+            "trace_id": "c860edf97b722fa6d31fbc22564ab117",
+            "trace_timestamp": 1776269408367
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzQ3NzpRV3JG",
+        "name": "lobehub-run1",
+        "dataset_id": "RGF0YXNldDozNDA4MjI6Vlo2ZA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0Mjk5OnFjbDc=",
+        "created_at": "2026-04-15T16:03:42.755918Z",
+        "updated_at": "2026-04-15T16:03:42.755918Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ2OTY3MjY0MDo3UmpV"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_7721c7",
+          "example_id": "7406da35-662b-4d91-85ed-539aed4033bf",
+          "output": "{\"output\": \"Found it \\u2014 last line: `\\\"When you recieve an error...\\\"`. Now I'll get the file SHA and the main branch SHA to create the branch and commit via API.All done! Here's a summary of everything that was completed:\\n\\n1. **Found the typo** \\u2014 Last line of README.md: `\\\"When you recieve an error...\\\"` \\u2192 `\\\"receive\\\"`\\n2. **Created branch** `fix/readme-typo` from `main`\\n3. **Committed the fix** with message `fix: correct spelling of 'receive' in README`\\n4. **Opened PR** \\u2192 [seldo/acme-sdk-python#896](https://github.com/seldo/acme-sdk-python/pull/896) with `Closes #763` in the body\", \"tool_calls\": 13, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Bash\", \"Agent\", \"Bash\"], \"latency_seconds\": 144.07, \"input_tokens\": 13, \"output_tokens\": 8004, \"total_cost_usd\": 0.746781}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/5 passed.\n  [pass] Branch fix/readme-typo exists on remote\n  [pass] README.md on that branch has 'receive' (not 'recieve')\n  [pass] A PR exists from fix/readme-typo to main\n  [fail] PR body or title references issue #763\n  [fail] Commit message is descriptive (e.g., 'fix: correct typo in README.md')",
+            "eval.correctness.label": "partial",
+            "eval.correctness.score": 0.6,
+            "eval.correctness.trace.id": "d1bf3409c5ccfea21e6836031a6826ae",
+            "eval.correctness.trace.timestamp": 1776269168308,
+            "eval.efficiency.explanation": "13 tool calls (expected ~10), 10 consecutive repeated calls",
+            "eval.efficiency.label": "moderate",
+            "eval.efficiency.score": 0.7,
+            "eval.efficiency.trace.id": "4d4bd4c276c9ea56f4aa14ef27383543",
+            "eval.efficiency.trace.timestamp": 1776269172002,
+            "eval.latency.explanation": "144.07s | 13 in + 8004 out tokens | $0.7468",
+            "eval.latency.label": "slow",
+            "eval.latency.score": 0.4,
+            "eval.latency.trace.id": "858715ef8c5e10f13d046dabc6e1fde2",
+            "eval.latency.trace.timestamp": 1776269172200,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "78b96a7e22c8864a59c7de0f2f301a87",
+            "eval.output_quality.trace.timestamp": 1776269171379,
+            "eval.tool_fidelity.explanation": "12/13 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 0.9230769230769231,
+            "eval.tool_fidelity.trace.id": "1902f0e4c386f51b1e015ea5f8a692f2",
+            "eval.tool_fidelity.trace.timestamp": 1776269172764,
+            "trace_id": "97be49c4b50f341f3e64d14cbdba65d7",
+            "trace_timestamp": 1776269022775
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzQ3NTp4Wkdi",
+        "name": "mcp-run1",
+        "dataset_id": "RGF0YXNldDozNDA4MjI6Vlo2ZA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0Mjk5OnFjbDc=",
+        "created_at": "2026-04-15T15:59:01.266264Z",
+        "updated_at": "2026-04-15T15:59:01.266264Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ2OTY3MjY0MDo3UmpV"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_b2a346",
+          "example_id": "7406da35-662b-4d91-85ed-539aed4033bf",
+          "output": "{\"output\": \"I'll start by fetching the README.md content and creating the branch at the same time!Found the typo on the last line: `recieve` \\u2192 `receive`. Now I'll commit the fix to the new branch.Commit is in. Now opening the PR referencing issue #763.All done! Here's a summary of what was completed:\\n\\n1. **Branch created**: `fix/readme-typo` off `main`\\n2. **Typo fixed**: `recieve` \\u2192 `receive` in the last line of `README.md` (*\\\"When you receive an error...\\\"*)\\n3. **Committed** with message: `docs: fix typo 'recieve' -> 'receive' in README`\\n4. **PR opened**: [#871 \\u2014 docs: fix typo 'recieve' -> 'receive' in README](https://github.com/seldo/acme-sdk-python/pull/871), with `Closes #763` in the body to automatically link and close the issue on merge.\", \"tool_calls\": 4, \"tool_names\": [\"mcp__github__get_file_contents\", \"mcp__github__create_branch\", \"mcp__github__create_or_update_file\", \"mcp__github__create_pull_request\"], \"latency_seconds\": 32.18, \"input_tokens\": 6, \"output_tokens\": 2408, \"total_cost_usd\": 0.276527}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/5 passed.\n  [pass] Branch fix/readme-typo exists on remote\n  [pass] README.md on that branch has 'receive' (not 'recieve')\n  [pass] A PR exists from fix/readme-typo to main\n  [fail] PR body or title references issue #763\n  [fail] Commit message is descriptive (e.g., 'fix: correct typo in README.md')",
+            "eval.correctness.label": "partial",
+            "eval.correctness.score": 0.6,
+            "eval.correctness.trace.id": "1f7f531d1e370d1708c397bf8628073a",
+            "eval.correctness.trace.timestamp": 1776268775666,
+            "eval.efficiency.explanation": "4 tool calls (expected ~10)",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "31ec112ee6d493bea72866a1be42e789",
+            "eval.efficiency.trace.timestamp": 1776268778705,
+            "eval.latency.explanation": "32.18s | 6 in + 2408 out tokens | $0.2765",
+            "eval.latency.label": "moderate",
+            "eval.latency.score": 0.7,
+            "eval.latency.trace.id": "0f63b3cf0417a203d3313aba18679132",
+            "eval.latency.trace.timestamp": 1776268779187,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "86bf8ac85f7b95e3a7a14ee9c728e858",
+            "eval.output_quality.trace.timestamp": 1776268778382,
+            "eval.tool_fidelity.explanation": "4/4 calls were MCP tools",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "280ad6fea84e085998ac29e44bcaad4f",
+            "eval.tool_fidelity.trace.timestamp": 1776268780134,
+            "trace_id": "8a0768bb065462c0e13c87becc01d8c5",
+            "trace_timestamp": 1776268741464
+          }
+        }
+      ]
+    }
+  ]
+}

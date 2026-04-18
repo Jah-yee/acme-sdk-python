@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA5MDY6RzJpMQ==",
+    "name": "eval-write-T17-20260415-154121",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-15T22:41:21.631260Z",
+    "updated_at": "2026-04-15T22:41:21.631260Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "88f39d4c-15f7-483f-8e47-809bde658c04",
+      "created_at": "2026-04-15T22:41:21.630000Z",
+      "updated_at": "2026-04-15T22:41:21.630000Z",
+      "additional_properties": {
+        "attributes.input.value": "Create a new label called `performance` with color `#ff9900` and description 'Performance-related issues', then apply it to issue #1227.",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Label 'performance' exists with color ff9900\", \"Label has description 'Performance-related issues'\", \"Issue #1227 has the 'performance' label\"], \"note\": \"Issue #1227 is the retry config enhancement.\"}",
+        "category": "write",
+        "task_id": "T17",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzcxMTpYM3Mv",
+        "name": "vault-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MDY6RzJpMQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDIxOlBkV2U=",
+        "created_at": "2026-04-15T22:42:51.786411Z",
+        "updated_at": "2026-04-15T22:42:51.786411Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NDQ0MDU4MjpEM0tF"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_d8ee89",
+          "example_id": "88f39d4c-15f7-483f-8e47-809bde658c04",
+          "output": "{\"output\": \"I'll handle this in two steps: first create the `performance` label, then apply it to issue #1227. Both are **Write** operations \\u2014 I'll inform you and proceed.\\n\\n**Step 1:** Creating the label on `seldo/acme-sdk-python`.\\n**Step 2:** Applying it to issue #1227.Label created successfully. Now applying it to issue #1227.Here's a summary of what happened:\\n\\n\\u2705 **Label created** \\u2014 `performance` with color `#ff9900` and description *\\\"Performance-related issues\\\"* was successfully added to `seldo/acme-sdk-python`.\\n\\n\\u274c **Label not applied** \\u2014 Issue **#1227** could not be found in `seldo/acme-sdk-python`. It either doesn't exist or the number may be incorrect.\\n\\nCould you double-check the issue number? You can run `gh issue list --repo seldo/acme-sdk-python` to browse open issues, and I'll apply the label to the correct one.\", \"tool_calls\": 2, \"tool_names\": [\"Bash\", \"Bash\"], \"latency_seconds\": 13.31, \"input_tokens\": 5, \"output_tokens\": 631, \"total_cost_usd\": 0.051732}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 2/3 passed.\n  [pass] Label 'performance' exists with color ff9900\n  [pass] Label has description 'Performance-related issues'\n  [fail] Issue #1227 has the 'performance' label",
+            "eval.correctness.label": "partial",
+            "eval.correctness.score": 0.6666666666666666,
+            "eval.correctness.trace.id": "7ee56aa1549f7aeaf6e2fdc7e3c7e411",
+            "eval.correctness.trace.timestamp": 1776292986221,
+            "eval.efficiency.explanation": "2 tool calls (expected ~5), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "a2ef7e058ccf4f15df0c0dbfcdd3e39b",
+            "eval.efficiency.trace.timestamp": 1776292987643,
+            "eval.latency.explanation": "13.31s | 5 in + 631 out tokens | $0.0517",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "39e30fa8074d978b54f9e72844cf8759",
+            "eval.latency.trace.timestamp": 1776292987719,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "4dd713414e0d051d04942fdd73c08ec6",
+            "eval.output_quality.trace.timestamp": 1776292987570,
+            "eval.tool_fidelity.explanation": "2/2 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "8e6d750067b44f37aa739dade18609c6",
+            "eval.tool_fidelity.trace.timestamp": 1776292987791,
+            "trace_id": "36feceb97af808b954eb25c45faa3cf1",
+            "trace_timestamp": 1776292971801
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzcwODpHajBh",
+        "name": "lobehub-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MDY6RzJpMQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDIxOlBkV2U=",
+        "created_at": "2026-04-15T22:42:24.028996Z",
+        "updated_at": "2026-04-15T22:42:24.028996Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NDQ0MDU4MjpEM0tF"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_f95d94",
+          "example_id": "88f39d4c-15f7-483f-8e47-809bde658c04",
+          "output": "{\"output\": \"I'll start by creating the label first, then apply it to the issue once it's created.Label created! Now applying it to issue #1227.The label `performance` was successfully created with color `#ff9900` and description \\\"Performance-related issues\\\". However, applying it to issue #1227 failed \\u2014 **issue #1227 does not exist** in the `seldo/acme-sdk-python` repository.\\n\\nCould you double-check the issue number? I'm happy to apply the label once you provide the correct one.\", \"tool_calls\": 2, \"tool_names\": [\"Bash\", \"Bash\"], \"latency_seconds\": 10.51, \"input_tokens\": 5, \"output_tokens\": 447, \"total_cost_usd\": 0.059413}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 2/3 passed.\n  [pass] Label 'performance' exists with color ff9900\n  [pass] Label has description 'Performance-related issues'\n  [fail] Issue #1227 has the 'performance' label",
+            "eval.correctness.label": "partial",
+            "eval.correctness.score": 0.6666666666666666,
+            "eval.correctness.trace.id": "1b20c207b1c310ae001803d94963ad73",
+            "eval.correctness.trace.timestamp": 1776292955740,
+            "eval.efficiency.explanation": "2 tool calls (expected ~5), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "78c0398a922e1d8a6583b38c0badfd8a",
+            "eval.efficiency.trace.timestamp": 1776292960188,
+            "eval.latency.explanation": "10.51s | 5 in + 447 out tokens | $0.0594",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "e522e0fb22c40e558ac952ff7fe157d1",
+            "eval.latency.trace.timestamp": 1776292960267,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "f43439252eca67156eb86f597c7d8251",
+            "eval.output_quality.trace.timestamp": 1776292960114,
+            "eval.tool_fidelity.explanation": "2/2 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "a39d8ecd2aa0ad8da849620c4ac9843c",
+            "eval.tool_fidelity.trace.timestamp": 1776292960340,
+            "trace_id": "736ce687a3dda55270ca6762fc71d146",
+            "trace_timestamp": 1776292944046
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzcwNTpLMWtl",
+        "name": "mcp-run1",
+        "dataset_id": "RGF0YXNldDozNDA5MDY6RzJpMQ==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0NDIxOlBkV2U=",
+        "created_at": "2026-04-15T22:41:30.109114Z",
+        "updated_at": "2026-04-15T22:41:30.109114Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3NDQ0MDU4MjpEM0tF"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_22b6ca",
+          "example_id": "88f39d4c-15f7-483f-8e47-809bde658c04",
+          "output": "{\"output\": \"I'll handle both steps simultaneously \\u2014 creating the label and then applying it to the issue. Since the MCP tools don't include label management, I'll use the GitHub CLI for those operations.The Bash tool requires approval. Let me use the GitHub API directly via the MCP tools to create the label, then apply it.The Bash tool isn't available in this environment without approval. Unfortunately, the available MCP GitHub tools don't include a label creation endpoint. Let me try applying the label directly to the issue update \\u2014 if the label already exists, it will be applied:There are two issues to report:\\n\\n1. **Label creation**: The available MCP GitHub tools do not include a label management endpoint (create/edit labels). Attempts to use the GitHub CLI via the Bash tool were blocked pending approval.\\n\\n2. **Issue #1227**: When fetching the issue, GitHub returned: **\\\"This issue was deleted\\\"** \\u2014 issue #1227 does not exist (it has been deleted) in `seldo/acme-sdk-python`.\\n\\n**To complete this task, you would need to:**\\n- Approve Bash tool access so I can run `gh api repos/seldo/acme-sdk-python/labels --method POST -f name=\\\"performance\\\" -f color=\\\"ff9900\\\" -f description=\\\"Performance-related issues\\\"` to create the label.\\n- Confirm the correct issue number, since #1227 has been deleted. Once you provide a valid issue number, I can apply the `performance` label using `mcp__github__update_issue`.\\n\\nWould you like to provide a valid issue number or grant Bash tool approval so I can proceed?\", \"tool_calls\": 4, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\", \"mcp__github__get_issue\"], \"latency_seconds\": 41.28, \"input_tokens\": 7, \"output_tokens\": 2580, \"total_cost_usd\": 0.137099}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/3 passed.\n  [fail] Label 'performance' exists with color ff9900\n  [fail] Label has description 'Performance-related issues'\n  [fail] Issue #1227 has the 'performance' label",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "06143e9950ae8ab348586316d5da096a",
+            "eval.correctness.trace.timestamp": 1776292932689,
+            "eval.efficiency.explanation": "4 tool calls (expected ~5), 2 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "feb646f63725e7d53d52919626d28723",
+            "eval.efficiency.trace.timestamp": 1776292934117,
+            "eval.latency.explanation": "41.28s | 7 in + 2580 out tokens | $0.1371",
+            "eval.latency.label": "moderate",
+            "eval.latency.score": 0.7,
+            "eval.latency.trace.id": "3ad398abd7acc206376d1f4e91d8159a",
+            "eval.latency.trace.timestamp": 1776292934192,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "5c495e2d781cc736bdddece880eb6cb2",
+            "eval.output_quality.trace.timestamp": 1776292934044,
+            "eval.tool_fidelity.explanation": "1/4 calls were MCP tools",
+            "eval.tool_fidelity.label": "mixed",
+            "eval.tool_fidelity.score": 0.25,
+            "eval.tool_fidelity.trace.id": "b86cab6042fceb98bc3306f31db25e50",
+            "eval.tool_fidelity.trace.timestamp": 1776292934265,
+            "trace_id": "3f4648b1c9c1142849a74f2a1cb208b6",
+            "trace_timestamp": 1776292890262
+          }
+        }
+      ]
+    }
+  ]
+}

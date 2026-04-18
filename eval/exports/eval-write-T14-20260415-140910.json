@@ -1,0 +1,167 @@
+{
+  "dataset": {
+    "id": "RGF0YXNldDozNDA4NjU6UldLaA==",
+    "name": "eval-write-T14-20260415-140910",
+    "space_id": "U3BhY2U6MzEwMjI6NERxbA==",
+    "created_at": "2026-04-15T21:09:10.586392Z",
+    "updated_at": "2026-04-15T21:09:10.586392Z",
+    "versions": null
+  },
+  "examples": [
+    {
+      "id": "56bdc49f-d4c9-4589-b5ea-1c8f130226b8",
+      "created_at": "2026-04-15T21:09:10.585000Z",
+      "updated_at": "2026-04-15T21:09:10.585000Z",
+      "additional_properties": {
+        "attributes.input.value": "Add the label `needs-triage` to issues #1202 and #1205.",
+        "attributes.output.value": "{\"type\": \"state_check\", \"checks\": [\"Label 'needs-triage' exists (created if necessary)\", \"Issue #1202 has the 'needs-triage' label\", \"Issue #1205 has the 'needs-triage' label\"], \"note\": \"Issue #1202 is the config crash bug, #1205 is the unicode bug.\"}",
+        "category": "write",
+        "task_id": "T14",
+        "tier": 3.0
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzYyODpZb0JQ",
+        "name": "vault-run1",
+        "dataset_id": "RGF0YXNldDozNDA4NjU6UldLaA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzcwOmh3OHY=",
+        "created_at": "2026-04-15T21:14:05.538411Z",
+        "updated_at": "2026-04-15T21:14:05.538411Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MzM3MTEzNzp0R09S"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_0baaeb",
+          "example_id": "56bdc49f-d4c9-4589-b5ea-1c8f130226b8",
+          "output": "{\"output\": \"I'll add the `needs-triage` label to both issues simultaneously now.Issue #1202 doesn't exist in the repo. Let me retry #1205 on its own:Neither issue could be found in **seldo/acme-sdk-python**. Here's the summary:\\n\\n| Issue | Result |\\n|-------|--------|\\n| #1202 | \\u274c Not found \\u2014 does not exist in this repo |\\n| #1205 | \\u274c Not found \\u2014 does not exist in this repo |\\n\\nPossible reasons:\\n- The issue numbers may be incorrect.\\n- The issues may have been deleted or transferred to another repo.\\n- You may be targeting the wrong repository.\\n\\nPlease double-check the issue numbers or repository name and let me know how you'd like to proceed!\", \"tool_calls\": 3, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 12.43, \"input_tokens\": 5, \"output_tokens\": 620, \"total_cost_usd\": 0.0523}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/3 passed.\n  [fail] Label 'needs-triage' exists (created if necessary)\n  [fail] Issue #1202 has the 'needs-triage' label\n  [fail] Issue #1205 has the 'needs-triage' label",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "14dbafcd0cc62aed9d7d12076ed7aba3",
+            "eval.correctness.trace.timestamp": 1776287659454,
+            "eval.efficiency.explanation": "3 tool calls (expected ~4), 2 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "6c8fdf30f3bb0cfa6fffef63c907b0ce",
+            "eval.efficiency.trace.timestamp": 1776287661178,
+            "eval.latency.explanation": "12.43s | 5 in + 620 out tokens | $0.0523",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "f24bf982c5eee70e902921f80ed1184b",
+            "eval.latency.trace.timestamp": 1776287661556,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "a75deaac3a5bed1d28de646a21e7f82e",
+            "eval.output_quality.trace.timestamp": 1776287660968,
+            "eval.tool_fidelity.explanation": "3/3 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "235ac03462119e526233865ccd30c79c",
+            "eval.tool_fidelity.trace.timestamp": 1776287661862,
+            "trace_id": "9d7eeb2deae61471528954169e0f6466",
+            "trace_timestamp": 1776287645580
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzYyNzp4UG9j",
+        "name": "lobehub-run1",
+        "dataset_id": "RGF0YXNldDozNDA4NjU6UldLaA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzcwOmh3OHY=",
+        "created_at": "2026-04-15T21:13:37.843061Z",
+        "updated_at": "2026-04-15T21:13:37.843061Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MzM3MTEzNzp0R09S"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_574f06",
+          "example_id": "56bdc49f-d4c9-4589-b5ea-1c8f130226b8",
+          "output": "{\"output\": \"It seems issue #1202 doesn't exist. Let me check what issues are available in the repo.Neither issue #1202 nor #1205 exists in the `seldo/acme-sdk-python` repository. The most recent issues appear to range from around #1215 up to #1234. Could you double-check the issue numbers? You may have meant a different pair of issues.\", \"tool_calls\": 3, \"tool_names\": [\"Bash\", \"Bash\", \"Bash\"], \"latency_seconds\": 13.71, \"input_tokens\": 5, \"output_tokens\": 579, \"total_cost_usd\": 0.135097}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 0/3 passed.\n  [fail] Label 'needs-triage' exists (created if necessary)\n  [fail] Issue #1202 has the 'needs-triage' label\n  [fail] Issue #1205 has the 'needs-triage' label",
+            "eval.correctness.label": "incorrect",
+            "eval.correctness.score": 0,
+            "eval.correctness.trace.id": "51f42d15195854941fea872c508301d6",
+            "eval.correctness.trace.timestamp": 1776287632856,
+            "eval.efficiency.explanation": "3 tool calls (expected ~4), 2 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "602ba165920ab28d125bcc45425cdc10",
+            "eval.efficiency.trace.timestamp": 1776287634752,
+            "eval.latency.explanation": "13.71s | 5 in + 579 out tokens | $0.1351",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "9427e6b655fb023aef521257588cc139",
+            "eval.latency.trace.timestamp": 1776287635162,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "c560eb48e953ab3a93569da6bfda16f6",
+            "eval.output_quality.trace.timestamp": 1776287634523,
+            "eval.tool_fidelity.explanation": "3/3 calls were Bash (gh/git)",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "309cec58ecef60cc7ccc16a8b8eb456f",
+            "eval.tool_fidelity.trace.timestamp": 1776287635546,
+            "trace_id": "2ba2cf1d485d2a84853fbc6fd9c6922a",
+            "trace_timestamp": 1776287617884
+          }
+        }
+      ]
+    },
+    {
+      "experiment": {
+        "id": "RXhwZXJpbWVudDo3NzYyMzpuTjg4",
+        "name": "mcp-run1",
+        "dataset_id": "RGF0YXNldDozNDA4NjU6UldLaA==",
+        "dataset_version_id": "RGF0YXNldFZlcnNpb246MzQ0MzcwOmh3OHY=",
+        "created_at": "2026-04-15T21:09:19.884725Z",
+        "updated_at": "2026-04-15T21:09:19.884725Z",
+        "experiment_traces_project_id": "TW9kZWw6NzQ3MzM3MTEzNzp0R09S"
+      },
+      "runs": [
+        {
+          "id": "EXP_ID_280394",
+          "example_id": "56bdc49f-d4c9-4589-b5ea-1c8f130226b8",
+          "output": "{\"output\": \"I'll update both issues simultaneously!Done! The `needs-triage` label has been successfully added to both issues:\\n\\n- **#1202** \\u2013 \\\"Config file parser crashes on empty values\\\" \\u2705\\n- **#1205** \\u2013 \\\"JSON file exporter doesn't handle unicode properly\\\" \\u2705\", \"tool_calls\": 2, \"tool_names\": [\"mcp__github__update_issue\", \"mcp__github__update_issue\"], \"latency_seconds\": 9.83, \"input_tokens\": 4, \"output_tokens\": 359, \"total_cost_usd\": 0.054943}",
+          "additional_properties": {
+            "eval.correctness.explanation": "State checks: 3/3 passed.\n  [pass] Label 'needs-triage' exists (created if necessary)\n  [pass] Issue #1202 has the 'needs-triage' label\n  [pass] Issue #1205 has the 'needs-triage' label",
+            "eval.correctness.label": "correct",
+            "eval.correctness.score": 1,
+            "eval.correctness.trace.id": "3d8ab9d6ee449a57965aea43da7c2a3c",
+            "eval.correctness.trace.timestamp": 1776287371200,
+            "eval.efficiency.explanation": "2 tool calls (expected ~4), 1 consecutive repeated calls",
+            "eval.efficiency.label": "efficient",
+            "eval.efficiency.score": 1,
+            "eval.efficiency.trace.id": "0b64c9f2e3b1bafd161c2254ee8631ae",
+            "eval.efficiency.trace.timestamp": 1776287373195,
+            "eval.latency.explanation": "9.83s | 4 in + 359 out tokens | $0.0549",
+            "eval.latency.label": "fast",
+            "eval.latency.score": 1,
+            "eval.latency.trace.id": "e82ba2198fb28626b584a70c78834c9d",
+            "eval.latency.trace.timestamp": 1776287373423,
+            "eval.output_quality.explanation": "Not a tier 4 analysis task.",
+            "eval.output_quality.label": "n/a",
+            "eval.output_quality.score": 1,
+            "eval.output_quality.trace.id": "7e390f66e38a28ed3ad65285b9059eab",
+            "eval.output_quality.trace.timestamp": 1776287372816,
+            "eval.tool_fidelity.explanation": "2/2 calls were MCP tools",
+            "eval.tool_fidelity.label": "on_pattern",
+            "eval.tool_fidelity.score": 1,
+            "eval.tool_fidelity.trace.id": "da63a7a05775226519292787bb0f6673",
+            "eval.tool_fidelity.trace.timestamp": 1776287373584,
+            "trace_id": "56b71a0e89021cb17096c2049791e6c0",
+            "trace_timestamp": 1776287360059
+          }
+        }
+      ]
+    }
+  ]
+}
