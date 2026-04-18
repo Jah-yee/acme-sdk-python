@@ -7,6 +7,10 @@ from claude_agent_sdk import ClaudeAgentOptions
 
 SKILLS_DIR = Path(__file__).parent / "skills"
 
+# Pinned to Opus 4.6 — keeps parity with earlier eval runs. The "opus" alias
+# now resolves to 4.7, so relying on the default would silently change models.
+EVAL_MODEL = "claude-opus-4-6"
+
 # Base system prompt appended to all arms
 BASE_PROMPT = (
     "You are performing a GitHub operations task. "
@@ -30,8 +34,10 @@ def get_arm_options(arm: str, repo: str) -> ClaudeAgentOptions:
         return _lobehub_options(repo_prompt)
     elif arm == "vault":
         return _vault_options(repo_prompt)
+    elif arm == "baseline":
+        return _baseline_options(repo_prompt)
     else:
-        raise ValueError(f"Unknown arm: {arm!r}. Choose from: mcp, lobehub, vault")
+        raise ValueError(f"Unknown arm: {arm!r}. Choose from: mcp, lobehub, vault, baseline")
 
 
 def _mcp_options(repo: str, repo_prompt: str) -> ClaudeAgentOptions:
@@ -52,6 +58,7 @@ def _mcp_options(repo: str, repo_prompt: str) -> ClaudeAgentOptions:
         },
         system_prompt=BASE_PROMPT + repo_prompt + "\nUse MCP tools for all GitHub operations.",
         max_turns=25,
+        model=EVAL_MODEL,
     )
 
 
@@ -61,6 +68,7 @@ def _lobehub_options(repo_prompt: str) -> ClaudeAgentOptions:
         allowed_tools=["Bash(gh *)", "Bash(git *)", "Read", "Glob", "Grep"],
         system_prompt=skill_content + "\n\n" + BASE_PROMPT + repo_prompt,
         max_turns=25,
+        model=EVAL_MODEL,
     )
 
 
@@ -70,7 +78,17 @@ def _vault_options(repo_prompt: str) -> ClaudeAgentOptions:
         allowed_tools=["Bash(gh *)", "Bash(git *)", "Read", "Glob", "Grep"],
         system_prompt=skill_content + "\n\n" + BASE_PROMPT + repo_prompt,
         max_turns=25,
+        model=EVAL_MODEL,
     )
 
 
-ARM_NAMES = ["mcp", "lobehub", "vault"]
+def _baseline_options(repo_prompt: str) -> ClaudeAgentOptions:
+    return ClaudeAgentOptions(
+        allowed_tools=["Bash(gh *)", "Bash(git *)", "Read", "Glob", "Grep"],
+        system_prompt=BASE_PROMPT + repo_prompt,
+        max_turns=25,
+        model=EVAL_MODEL,
+    )
+
+
+ARM_NAMES = ["mcp", "lobehub", "vault", "baseline"]
