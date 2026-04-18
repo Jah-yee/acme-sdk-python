@@ -2,6 +2,7 @@
 
 import json
 import subprocess
+import sys
 import time
 import logging
 
@@ -54,7 +55,7 @@ def throttled_reset(repo: str, script_dir: str) -> None:
     # Fast path: incremental reconcile against snapshot.
     logger.info("Attempting fast reconcile for %s...", repo)
     r = subprocess.run(
-        ["python", f"{script_dir}/eval/repo_state.py", "reconcile", repo],
+        [sys.executable, f"{script_dir}/eval/repo_state.py", "reconcile", repo],
         capture_output=True, text=True, timeout=300, cwd=script_dir,
     )
     if r.returncode == 0:
@@ -76,7 +77,7 @@ def throttled_reset(repo: str, script_dir: str) -> None:
 
     # Re-snapshot so future reconciles match the fresh state.
     snap = subprocess.run(
-        ["python", f"{script_dir}/eval/repo_state.py", "snapshot", repo],
+        [sys.executable, f"{script_dir}/eval/repo_state.py", "snapshot", repo],
         capture_output=True, text=True, timeout=60, cwd=script_dir,
     )
     if snap.returncode != 0:
