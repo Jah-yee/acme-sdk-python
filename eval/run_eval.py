@@ -143,7 +143,7 @@ def create_dataset(client: ArizeClient, tasks: list[dict], name: str) -> str:
     })
 
     dataset = client.datasets.create(
-        space_id=space_id,
+        space=space_id,
         name=name,
         examples=df,
     )
@@ -314,7 +314,7 @@ def run_experiment_for_arm(
         try:
             experiment, experiment_df = client.experiments.run(
                 name=experiment_name,
-                dataset_id=dataset_id,
+                dataset=dataset_id,
                 task=task_fn,
                 evaluators=[correctness, output_quality, efficiency, latency, tool_fidelity],
                 concurrency=1,  # Sequential to avoid rate limits
